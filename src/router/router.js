@@ -1,6 +1,8 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Home from "@/pages/myspace-home.vue";
 import Myhome from "@/pages/member/mypage-home.vue"
+import ReviewLIst from "@/pages/member/review-list.vue"
+import ReviewInsert from "@/pages/member/review-insert.vue"
 
 const router = createRouter({
     history: createWebHistory(),
@@ -17,9 +19,14 @@ const router = createRouter({
         },
         {
             path: "/mypage/review",
-            name: "Review",
-            component: Review
+            name: "ReviewLIst",
+            component: ReviewLIst
         },
+        {
+            path: "/mypage/review/insert",
+            name: "ReviewInsert",
+            component: ReviewInsert
+        }
     ]
 });
 

@@ -34,16 +34,16 @@
             <!-- ***** Menu Start ***** -->
 
             <ul class="nav" style="display:flex; align-items: center;">
-              <li><a href="/" class="active">쇼핑</a></li>
-              <li><a href="/cart/list">장바구니</a></li>
+              <li><router-link to="/" class="active">쇼핑</router-link></li>
+              <li><router-link to="/cart/list">장바구니</router-link></li>
               <!-- <sec:authorize access="isAnonymous()"> -->
-              <li><a href="/member/register">회원가입</a></li>
+              <li><router-link to="/member/register">회원가입</router-link></li>
               <!-- </sec:authorize> -->
               <!-- <sec:authorize access="isAuthenticated()"> -->
-              <li><a href="/logout">로그아웃</a></li>
+              <li><router-link to="/logout">로그아웃</router-link></li>
               <!-- </sec:authorize> -->
               <li>
-                <a href="/mypage/home">프로필 <img src="@/assets/images/profile_images.webp" alt=""/></a>
+                <router-link to="/mypage/home">프로필 <img src="@/assets/images/profile_images.webp" alt=""/></router-link>
               </li>
             </ul>
             <a class="menu-trigger">
