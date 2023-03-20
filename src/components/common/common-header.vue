@@ -7,7 +7,7 @@
           <nav class="main-nav">
             <!-- ***** Logo Start ***** -->
             <a href="/" class="logo" style="width: 190px; height: 90px;">
-              <img style="width: 100%; height: 100%;" src="@/assets/images/myspace_logo.png" alt="" />
+              <img style="width: 100px; height: 100px;" src="@/assets/images/myspace_logo.png" alt="" />
             </a>
             <!-- ***** Logo End ***** -->
             <!-- ***** Search End ***** -->
