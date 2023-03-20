@@ -14,7 +14,12 @@ const router = createRouter({
             path: "/mypage/home",
             name: "Myhome",
             component: Myhome
-        }
+        },
+        {
+            path: "/mypage/review",
+            name: "Review",
+            component: Review
+        },
     ]
 });
 
