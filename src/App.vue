@@ -1,26 +1,26 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <common-header />
+  <router-view />
+  <common-footer />
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import commonFooter from './components/common/common-footer.vue'
+import CommonHeader from './components/common/common-header.vue'
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
+  components: { commonFooter, CommonHeader },
+
 }
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+  @import "https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap";
+  @import "https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css";
+  @import "@/assets/css/fontawesome.css";
+  @import "@/assets/css/templatemo-cyborg-gaming.css";
+  @import "@/assets/css/owl.css";
+  @import "@/assets/css/animate.css";
+  @import "https://unpkg.com/swiper@7/swiper-bundle.min.css";
+  @import "@/assets/css/member-register.css";
 </style>
+
