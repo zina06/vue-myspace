@@ -32,7 +32,7 @@
                                     <ul style="text-align: center;">
                                         <li><a href="/mypage/review">내가 작성한 리뷰</a></li>
                                         <li><a href="#">질문 답변</a></li>
-                                        <li><a href="/cart">장바구니</a></li>
+                                        <li><a href="/cart/list">장바구니</a></li>
                                     </ul>
                                 </div>
                             </div>
