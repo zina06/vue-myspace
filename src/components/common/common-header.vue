@@ -12,16 +12,16 @@
             <!-- ***** Logo End ***** -->
             <!-- ***** Search End ***** -->
             <div class="search-input">
-              <!-- <form id="search" action="/"> -->
-              <div style="">
+              <form id="search">
+                <!-- <div> -->
                   <div class="search-img">
                     <img src="@/assets/images/search_icon.png" />
                   </div>
                   <div>
-                    <input type="text" placeholder="쇼핑검색" id="searchText" name="searchKeyword" onkeypress="handle" />
+                    <input type="text" placeholder="쇼핑검색" id="searchText" name="searchKeyword"  v-model="searchKeyword"  @keyup.enter="search" />
                   </div>
-                </div>        
-                <!-- </form>       -->
+                <!-- </div>         -->
+              </form>      
             </div>
 
             <!-- ***** Search End ***** -->
@@ -47,9 +47,28 @@
 </template>
 
 <script>
-export default {
-    name: "common-header"
-}
+import { ref } from 'vue';
+import { useRouter } from 'vue-router'
+  export default { 
+    name: "common-header",
+    setup () {
+      let searchKeyword = ref(null);
+      const router = useRouter();
+      const search = function () {
+        router.push({
+          name: 'Home',
+          query: {
+            searchKeyword : searchKeyword.value
+          }
+        })
+      }
+      return {
+        searchKeyword,
+        router,
+        search,
+      }
+    }
+  }
 </script>
 
 <style>

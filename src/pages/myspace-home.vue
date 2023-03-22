@@ -1,4 +1,5 @@
 <template>
+  {{searchKeyword}}
   <div class="container">
     <div class="row">
       <div class="col-lg-12">
@@ -102,8 +103,22 @@
 </template>
 
 <script>
+import { ref } from 'vue';
+import { useRoute } from 'vue-router';
 export default {
+  setup () {
+    const route = useRoute();
+    const searchKeyword = ref('');
+    if (route.query.searchKeyword){
+        searchKeyword.value = route.query.searchKeyword;
+    }
+    // alert(route.query.searchKeyword); // 확인차...
 
+    return {
+      route,
+      searchKeyword
+    }
+  }
 }
 </script>
 
