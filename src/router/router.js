@@ -4,6 +4,7 @@ import Myhome from "@/pages/member/mypage-home.vue"
 import ReviewLIst from "@/pages/member/review-list.vue"
 import ReviewInsert from "@/pages/member/review-insert.vue"
 import OrderPay from "@/pages/order/order-pay.vue"
+import OrderConfirm from "@/pages/order/order-confirm.vue"
 
 const router = createRouter({
     history: createWebHistory(),
@@ -32,6 +33,11 @@ const router = createRouter({
             path: "/order/pay",
             name: "OrderPay",
             component: OrderPay
+        },
+        {
+            path: "/order/confirm",
+            name: "OrderConfirm",
+            component: OrderConfirm
         }
     ]
 });

@@ -1,13 +1,45 @@
-/* .order-container {
-    display: block;
-    margin: 110px auto 0;
-    padding: 60px;
-} */
-*{
-    margin: 0 auto;
-  }
+.order-container {
+  width: 1000px;
+  margin: 110px auto 0;
+  padding: 60px 0;
+}
 
 .order-container h2 {
     color: #1EDDFF;
     font-weight: 700;
  }
+
+ .order-container h5 {
+  color: #171d55;
+  font-weight: 700;
+}
+
+.col-7{
+  display: inline-block;
+}
+
+.col-4{
+  display: inline-block;
+}
+
+.col-4 .btn{
+   width: 100%;
+}
+
+.sub{
+  padding-top: 40px;
+}
+
+.mb-3.row{
+  padding-top: 20px;
+}
+
+#sstitle{
+  padding-left: 30px;
+  color: black;
+}
+
+/* 셀렉트크기맞추기 */
+#dil-select{ 
+  margin-left: 30px;
+}
