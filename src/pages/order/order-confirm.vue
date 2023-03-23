@@ -8,27 +8,27 @@
                 <tbody>
                     <tr>
                         <th scope="col">배송지</th>
-                        <th scope="col">{{address}}</th>
+                        <th scope="col">{{}}</th>
                     </tr>
                     <tr>
                         <th scope="row">주문자</th>
-                        <td>{{deliveryName}}</td>
+                        <td>{{}}</td>
                     </tr>
                     <tr>
                         <th scope="row">주문상품</th>
-                        <td></td>
+                        <td>{{}}</td>
                     </tr>
                     <tr>
                         <th scope="row">결제수단</th>
-                        <td></td>
+                        <td>{{}}</td>
                     </tr>
                     <tr>
                         <th scope="row">총결제금액</th>
-                        <td></td>
+                        <td>{{}}</td>
                     </tr>
                     <tr>
                         <th scope="row">주문일자</th>
-                        <td></td>
+                        <td>{{}}</td>
                     </tr>
                 </tbody>
             </table>
