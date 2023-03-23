@@ -44,6 +44,34 @@
  </table>
  </div>
 </div>
+<div class = "cart-container2" style= "display: flex;">
+  <ol class="list-group col-4">
+  <li class="list-group-item d-flex justify-content-between align-items-start">
+    <div class="ms-2 me-auto">
+      <div class="fw-bold">총 상품 금액</div>
+    </div>
+    <span>10000</span>
+  </li>
+  <li class="list-group-item d-flex justify-content-between align-items-start">
+    <div class="ms-2 me-auto">
+      <div class="fw-bold">배송비</div>
+    </div>
+    <span>2500</span>
+  </li>
+  <li class="list-group-item d-flex justify-content-between align-items-start">
+    <div class="ms-2 me-auto">
+      <div class="fw-bold">결제금액</div>
+    </div>
+    <span>12500</span>
+  </li>
+  <button 
+          type="button" 
+          class="btn btn-primary"
+          >
+          1개 상품 구매하기
+        </button>
+</ol>
+</div>
 
 </template>
 
@@ -56,9 +84,15 @@ export default {
 <style>
 .cart-container {
   width: 800px;
-  height: 2000px;
   display: block;
   margin: 110px auto 0;
+  padding: 60px;
+}
+
+.cart-container2 {
+  
+  display: block;
+  margin: 110px;
   padding: 60px;
 }
 
