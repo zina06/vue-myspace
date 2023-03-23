@@ -1,10 +1,10 @@
 <template>
-    <div>
+    <div class = "cart-container">
   <h1>장바구니</h1>
   
  
    <div>
-   <table class="table ">
+   <table class="table">
    <thead>
      <tr>
        <th colspan="2">상품</th>
@@ -54,7 +54,13 @@ export default {
 </script>
 
 <style>
-
+.cart-container {
+  width: 800px;
+  height: 2000px;
+  display: block;
+  margin: 110px auto 0;
+  padding: 60px;
+}
 
 
 </style>
