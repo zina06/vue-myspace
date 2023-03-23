@@ -42,7 +42,7 @@
           
           <!-- ***** Banner End ***** -->	
           <ul class="category-list" >
-            <!-- <li v-for="category in categoryList">{{category}}</li> -->
+            <!-- <li v-for="category in categoryList" :key="category.id">{{category}}</li> -->
             <li><router-link to="/">카테고리 종류</router-link></li>
             <li><router-link to="/">카테고리 종류</router-link></li>
             <li><router-link to="/">카테고리 종류</router-link></li>
@@ -74,29 +74,32 @@
           </div>       
           <!-- ***** Most Popular End ***** -->
 
-          <div class="paging" style="">
-          <!-- <ul>
-              <c:if test="${pageMaker.prev }">
-              <li class="paginate_button previous">
-                  <a href="${pageMaker.startPage -1 }">Previous</a> 
+          <div class="paging" >
+            <ul>
+              <li class="paginate_button previous" v-if="cuurentPage != 1">
+                  <a href="/">Previous</a> 
               </li>
-              </c:if>
-          </ul>
-              <c:forEach var="num" begin="${pageMaker.startPage }" end="${pageMaker.endPage }">
-              <li class="paginate_button ${pageMaker.cri.pageNum == num ? "active":""} ">
-                  <a href="${num }">${num }</a>
-              </li>
-              </c:forEach>
               
-              <c:if test="${pageMaker.next }">
-              <li class="paginate_button next">
-                  <a href="${pageMaker.endPage +1 }">Next</a> 
+              <li v-for="page in productPages" :key="page" :class='cuurentPage === page ? "active" : ""' >
+                  <a href="/">{{page}}</a>
               </li>
-              </c:if> -->
+              
+              <li class="paginate_button next" v-if="numberOfPages != 1">
+                  <a href="/">Next</a> 
+              </li>
+            </ul>
+              <!-- <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                  <li v-if="cuurentPage !=1" class="page-item"><a class="page-link" @click="getTodos(cuurentPage-1)">Previous</a></li>
+                  <li v-for="page in numberOfPages" :key="page" class="page-item" :class="cuurentPage === page ? 'active' : ''"><a class="page-link" @click="getTodos(page)">{{page}}</a></li>
+                  <li v-if="numberOfPages != cuurentPage" class="page-item"><a class="page-link" @click="getTodos(cuurentPage+1)">Next</a></li>
+                </ul>
+              </nav> -->
           </div>
         </div>
       </div>
     </div>
+    
   </div>
 
 
@@ -108,15 +111,24 @@ import { useRoute } from 'vue-router';
 export default {
   setup () {
     const route = useRoute();
+    const categoryList = ref(null);
     const searchKeyword = ref('');
+    const productPages = ref(0);
+    const cuurentPage = ref(1);
+    const limit = 5;
+
     if (route.query.searchKeyword){
         searchKeyword.value = route.query.searchKeyword;
     }
     // alert(route.query.searchKeyword); // 확인차...
 
     return {
+      categoryList,
       route,
-      searchKeyword
+      searchKeyword,
+      productPages,
+      cuurentPage,
+      limit,
     }
   }
 }
