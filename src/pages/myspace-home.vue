@@ -51,7 +51,7 @@
           </ul>
           
           <!-- ***** Most Popular Start ***** -->
-          <div class="most-popular">
+          <div class="most-popular" >
           <div class="row">
             <div class="col-lg-12">
             <div class="heading-section">
@@ -59,7 +59,7 @@
             <div class="heading-section">
             </div>
               <div class="row" >
-                      <!-- <div v-for="product in productList"> -->
+                      <!-- <div v-for="product in productList" > -->
                       <div class="col-lg-3 col-sm-6 product-info">
                           <div class="item" >
                             <img src="/" alt="상품이름" />
@@ -67,6 +67,224 @@
                             </h4>
                           </div>
                       </div>
+                      <div class="col-lg-3 col-sm-6 product-info">
+                          <div class="item" >
+                            <img src="/" alt="상품이름" />
+                            <h4><span class="product-name">상품이름</span>
+                            </h4>
+                          </div>
+                      </div>
+                      <div class="col-lg-3 col-sm-6 product-info">
+                          <div class="item" >
+                            <img src="/" alt="상품이름" />
+                            <h4><span class="product-name">상품이름</span>
+                            </h4>
+                          </div>
+                      </div>
+                      <div class="col-lg-3 col-sm-6 product-info">
+                          <div class="item" >
+                            <img src="/" alt="상품이름" />
+                            <h4><span class="product-name">상품이름</span>
+                            </h4>
+                          </div>
+                      </div>
+                      <div class="col-lg-3 col-sm-6 product-info">
+                          <div class="item" >
+                            <img src="/" alt="상품이름" />
+                            <h4><span class="product-name">상품이름</span>
+                            </h4>
+                          </div>
+                      </div>
+                      <div class="col-lg-3 col-sm-6 product-info">
+                          <div class="item" >
+                            <img src="/" alt="상품이름" />
+                            <h4><span class="product-name">상품이름</span>
+                            </h4>
+                          </div>
+                      </div>
+                      <div class="col-lg-3 col-sm-6 product-info">
+                          <div class="item" >
+                            <img src="/" alt="상품이름" />
+                            <h4><span class="product-name">상품이름</span>
+                            </h4>
+                          </div>
+                      </div>
+                      <div class="col-lg-3 col-sm-6 product-info">
+                          <div class="item" >
+                            <img src="/" alt="상품이름" />
+                            <h4><span class="product-name">상품이름</span>
+                            </h4>
+                          </div>
+                      </div>
+                      <div class="col-lg-3 col-sm-6 product-info">
+                          <div class="item" >
+                            <img src="/" alt="상품이름" />
+                            <h4><span class="product-name">상품이름</span>
+                            </h4>
+                          </div>
+                      </div>
+                      <div class="col-lg-3 col-sm-6 product-info">
+                          <div class="item" >
+                            <img src="/" alt="상품이름" />
+                            <h4><span class="product-name">상품이름</span>
+                            </h4>
+                          </div>
+                      </div>
+                      <div class="col-lg-3 col-sm-6 product-info">
+                          <div class="item" >
+                            <img src="/" alt="상품이름" />
+                            <h4><span class="product-name">상품이름</span>
+                            </h4>
+                          </div>
+                      </div>
+                      <div class="col-lg-3 col-sm-6 product-info">
+                          <div class="item" >
+                            <img src="/" alt="상품이름" />
+                            <h4><span class="product-name">상품이름</span>
+                            </h4>
+                          </div>
+                      </div>
+                      <div class="col-lg-3 col-sm-6 product-info">
+                          <div class="item" >
+                            <img src="/" alt="상품이름" />
+                            <h4><span class="product-name">상품이름</span>
+                            </h4>
+                          </div>
+                      </div>
+                      <div class="col-lg-3 col-sm-6 product-info">
+                          <div class="item" >
+                            <img src="/" alt="상품이름" />
+                            <h4><span class="product-name">상품이름</span>
+                            </h4>
+                          </div>
+                      </div>
+                      <div class="col-lg-3 col-sm-6 product-info">
+                          <div class="item" >
+                            <img src="/" alt="상품이름" />
+                            <h4><span class="product-name">상품이름</span>
+                            </h4>
+                          </div>
+                      </div>
+                      <div class="col-lg-3 col-sm-6 product-info">
+                          <div class="item" >
+                            <img src="/" alt="상품이름" />
+                            <h4><span class="product-name">상품이름</span>
+                            </h4>
+                          </div>
+                      </div>
+                      <div class="col-lg-3 col-sm-6 product-info">
+                          <div class="item" >
+                            <img src="/" alt="상품이름" />
+                            <h4><span class="product-name">상품이름</span>
+                            </h4>
+                          </div>
+                      </div>
+                      <div class="col-lg-3 col-sm-6 product-info">
+                          <div class="item" >
+                            <img src="/" alt="상품이름" />
+                            <h4><span class="product-name">상품이름</span>
+                            </h4>
+                          </div>
+                      </div>
+                      <div class="col-lg-3 col-sm-6 product-info">
+                          <div class="item" >
+                            <img src="/" alt="상품이름" />
+                            <h4><span class="product-name">상품이름</span>
+                            </h4>
+                          </div>
+                      </div>
+                      <div class="col-lg-3 col-sm-6 product-info">
+                          <div class="item" >
+                            <img src="/" alt="상품이름" />
+                            <h4><span class="product-name">상품이름</span>
+                            </h4>
+                          </div>
+                      </div>
+                      <div class="col-lg-3 col-sm-6 product-info">
+                          <div class="item" >
+                            <img src="/" alt="상품이름" />
+                            <h4><span class="product-name">상품이름</span>
+                            </h4>
+                          </div>
+                      </div>
+                      <div class="col-lg-3 col-sm-6 product-info">
+                          <div class="item" >
+                            <img src="/" alt="상품이름" />
+                            <h4><span class="product-name">상품이름</span>
+                            </h4>
+                          </div>
+                      </div>
+                      <div class="col-lg-3 col-sm-6 product-info">
+                          <div class="item" >
+                            <img src="/" alt="상품이름" />
+                            <h4><span class="product-name">상품이름</span>
+                            </h4>
+                          </div>
+                      </div>
+                      <div class="col-lg-3 col-sm-6 product-info">
+                          <div class="item" >
+                            <img src="/" alt="상품이름" />
+                            <h4><span class="product-name">상품이름</span>
+                            </h4>
+                          </div>
+                      </div>
+                      <div class="col-lg-3 col-sm-6 product-info">
+                          <div class="item" >
+                            <img src="/" alt="상품이름" />
+                            <h4><span class="product-name">상품이름</span>
+                            </h4>
+                          </div>
+                      </div>
+                      <div class="col-lg-3 col-sm-6 product-info">
+                          <div class="item" >
+                            <img src="/" alt="상품이름" />
+                            <h4><span class="product-name">상품이름</span>
+                            </h4>
+                          </div>
+                      </div>
+                      <div class="col-lg-3 col-sm-6 product-info">
+                          <div class="item" >
+                            <img src="/" alt="상품이름" />
+                            <h4><span class="product-name">상품이름</span>
+                            </h4>
+                          </div>
+                      </div>
+                      <div class="col-lg-3 col-sm-6 product-info">
+                          <div class="item" >
+                            <img src="/" alt="상품이름" />
+                            <h4><span class="product-name">상품이름</span>
+                            </h4>
+                          </div>
+                      </div>
+                      <div class="col-lg-3 col-sm-6 product-info">
+                          <div class="item" >
+                            <img src="/" alt="상품이름" />
+                            <h4><span class="product-name">상품이름</span>
+                            </h4>
+                          </div>
+                      </div>
+                      <div class="col-lg-3 col-sm-6 product-info">
+                          <div class="item" >
+                            <img src="/" alt="상품이름" />
+                            <h4><span class="product-name">상품이름</span>
+                            </h4>
+                          </div>
+                      </div>
+                      <div class="col-lg-3 col-sm-6 product-info">
+                          <div class="item" >
+                            <img src="/" alt="상품이름" />
+                            <h4><span class="product-name">상품이름</span>
+                            </h4>
+                          </div>
+                      </div>
+                      <div class="col-lg-3 col-sm-6 product-info">
+                          <div class="item" >
+                            <img src="/" alt="상품이름" />
+                            <h4><span class="product-name">상품이름</span>
+                            </h4>
+                          </div>
+                      </div>
+
                       <!-- </div> -->
                   </div>
               </div>
@@ -75,7 +293,7 @@
           <!-- ***** Most Popular End ***** -->
 
           <div class="paging" >
-            <ul>
+            <!-- <ul>
               <li class="paginate_button previous" v-if="cuurentPage != 1">
                   <a href="/">Previous</a> 
               </li>
@@ -87,7 +305,7 @@
               <li class="paginate_button next" v-if="numberOfPages != 1">
                   <a href="/">Next</a> 
               </li>
-            </ul>
+            </ul> -->
               <!-- <nav aria-label="Page navigation example">
                 <ul class="pagination">
                   <li v-if="cuurentPage !=1" class="page-item"><a class="page-link" @click="getTodos(cuurentPage-1)">Previous</a></li>
@@ -122,6 +340,23 @@ export default {
     }
     // alert(route.query.searchKeyword); // 확인차...
 
+    const scroll = function() {
+      const html = document.querySelector("html");
+      const body = document.querySelector("body");
+
+      window.onscroll = () => {
+        console.log("문서 전체 높이:" + body.offsetHeight); // px 단위
+        console.log("눈에 보이는 영역 높이:" + html.clientHeight);
+        console.log("스크롤의 상단 위치:" + html.scrollTop);
+        let scrollStatus = body.offsetHeight - html.clientHeight - html.scrollTop;
+        console.log("현재 스크롤 상태: " + scrollStatus);
+        if(scrollStatus > -50 && scrollStatus < 50) {
+          console.log("제품 추가");
+        }
+      }
+    }
+
+    scroll();
     return {
       categoryList,
       route,
@@ -129,6 +364,7 @@ export default {
       productPages,
       cuurentPage,
       limit,
+      scroll,
     }
   }
 }
