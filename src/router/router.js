@@ -29,7 +29,7 @@ const router = createRouter({
             component: ReviewInsert
         },
         {
-            path: "/product/detail",
+            path: "/product/detail/:idx",
             name: "ProductDetail",
             component: ProductDetail
         }
