@@ -41,33 +41,22 @@
           
           <!-- ***** Banner End ***** -->	
           <ul class="category-list" >
-            <!-- <li v-for="category in categoryList">{{category}}</li> -->
-            <li><router-link to="/">카테고리 종류</router-link></li>
-            <li><router-link to="/">카테고리 종류</router-link></li>
-            <li><router-link to="/">카테고리 종류</router-link></li>
-            <li><router-link to="/">카테고리 종류</router-link></li>
-            <li><router-link to="/">카테고리 종류</router-link></li>
+            <li v-for="category in categoryList" :key="category.idx"><a v-bind:href="category.idx">{{category.name}}</a></li>
           </ul>
           
           <!-- ***** Most Popular Start ***** -->
           <div class="most-popular">
-          <div class="row">
-            <div class="col-lg-12">
-            <div class="heading-section">
-            </div>
-            <div class="heading-section">
-            </div>
-              <div class="row" >
-                      <!-- <div v-for="product in productList"> -->
-                      <div class="col-lg-3 col-sm-6 product-info">
-                          <div class="item" >
-                            <img src="/" alt="상품이름" />
-                            <h4><span class="product-name">상품이름</span>
-                            </h4>
-                          </div>
-                      </div>
-                      <!-- </div> -->
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="row" >
+                  <div class="col-lg-3 col-sm-6 product-info" v-for="product in productList" :key="product.idx">
+                    <div class="item" >
+                      <img v-bind:src="product.image_url" />
+                      <div class="pro-name">{{product.name}}</div>
+                      <span>{{product.price}}원</span>
+                    </div>
                   </div>
+                </div>
               </div>
             </div>
           </div>       
@@ -102,8 +91,34 @@
 </template>
 
 <script>
+import axios from 'axios';
+import { ref }  from 'vue';
 export default {
+  setup () {
+    let categoryList = ref(null);
+    let productList = ref(null);
 
+    const getCategoryList = async () => {
+      const res =  await axios.get('/category/findAll');            
+      categoryList.value = res.data;        
+      console.log(categoryList.value);
+    }
+
+    const getProductList = async () => {
+      const res =  await axios.get('/product/findAll');            
+      productList.value = res.data;        
+      console.log(productList.value);
+    }
+  
+    getCategoryList();
+    getProductList();
+    return {
+      categoryList,
+      productList,
+      getCategoryList,
+      getProductList,
+    }
+  }
 }
 </script>
 
@@ -132,10 +147,17 @@ export default {
 .product-info .item {
     cursor: pointer;
 }
-.product-name {
+.pro-name {
+    width: 180px;
     font-size: 1.2em;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
 }
 
+.item span {
+  text-align: end;
+}
 .paging {
     display: flex; 
     justify-content: space-between; 
