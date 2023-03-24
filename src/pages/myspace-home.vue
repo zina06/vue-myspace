@@ -1,5 +1,4 @@
 <template>
-  {{searchKeyword}}
   <div class="container">
     <div class="row">
       <div class="col-lg-12">
@@ -42,7 +41,7 @@
           
           <!-- ***** Banner End ***** -->	
           <ul class="category-list" >
-            <li v-for="category in categoryList" :key="category.idx"><a v-bind:href="category.idx">{{category.name}}</a></li>
+            <li v-for="category in categoryList" :key="category.idx" :class="category.idx === categoryNum ? 'cli' : ''"><a @click="categoryClick(category.idx)">{{category.name}}</a></li>
           </ul>
           
           <!-- ***** Most Popular Start ***** -->
@@ -50,41 +49,34 @@
             <div class="row">
               <div class="col-lg-12">
                 <div class="row" >
-                  <div class="col-lg-3 col-sm-6 product-info" v-for="product in productList" :key="product.idx">
-                    <div class="item" >
+                  <template v-for="(product, index) in productList"  :key="product.idx" >
+                  <div class="col-lg-3 col-sm-6 product-info" v-if="(cuurentPage-1)*limit <= index && index < (cuurentPage*limit)">
+                    <div class="item" @click="moveDetailPage(product.idx)" >
                       <img v-bind:src="product.image_url" />
                       <div class="pro-name">{{product.name}}</div>
                       <span>{{product.price}}원</span>
                     </div>
                   </div>
+                  </template>
                 </div>
               </div>
             </div>
           </div>       
           <!-- ***** Most Popular End ***** -->
 
-          <div class="paging" >
-            <!-- <ul>
+
+            <ul class="paging">
               <li class="paginate_button previous" v-if="cuurentPage != 1">
-                  <a href="/">Previous</a> 
+                  <a class="page-link" @click="movePage(cuurentPage-1)">Previous</a>
               </li>
-              
-              <li v-for="page in productPages" :key="page" :class='cuurentPage === page ? "active" : ""' >
-                  <a href="/">{{page}}</a>
+              <li v-for="page in numberOfPages" :key="page"  >
+                  <a class="page-link" :class='cuurentPage === page ? "cli" : ""' @click="movePage(page)">{{page}}</a>
               </li>
-              
-              <li class="paginate_button next" v-if="numberOfPages != 1">
-                  <a href="/">Next</a> 
+              <li class="paginate_button next" v-if="numberOfPages != cuurentPage">
+                  <a class="page-link" @click="movePage(cuurentPage+1)">Next</a>
               </li>
-            </ul> -->
-              <!-- <nav aria-label="Page navigation example">
-                <ul class="pagination">
-                  <li v-if="cuurentPage !=1" class="page-item"><a class="page-link" @click="getTodos(cuurentPage-1)">Previous</a></li>
-                  <li v-for="page in numberOfPages" :key="page" class="page-item" :class="cuurentPage === page ? 'active' : ''"><a class="page-link" @click="getTodos(page)">{{page}}</a></li>
-                  <li v-if="numberOfPages != cuurentPage" class="page-item"><a class="page-link" @click="getTodos(cuurentPage+1)">Next</a></li>
-                </ul>
-              </nav> -->
-          </div>
+            </ul>
+
         </div>
       </div>
     </div>
@@ -96,67 +88,88 @@
 
 <script>
 import axios from 'axios';
-import { ref } from 'vue';
-import { useRoute } from 'vue-router';
+import { ref, computed } from 'vue';
+import { useRoute, useRouter} from 'vue-router';
 export default {
   setup () {
-    const route = useRoute();
-    const searchKeyword = ref('');
-    const productPages = ref(0);
-    const cuurentPage = ref(1);
-    const limit = 5;
     let categoryList = ref(null);
     let productList = ref(null);
+    const route = useRoute();
+    const router = useRouter();
+    const categoryNum = ref(0);
+    const searchKeyword = ref('');
+    const productTotal = ref(0);
+    const cuurentPage = ref(1);
+    const limit = 16;
 
     const getCategoryList = async () => {
       const res =  await axios.get('/category/findAll');            
       categoryList.value = res.data;        
       console.log(categoryList.value);
     }
-
-    const getProductList = async () => {
-      const res =  await axios.get('/product/findAll');            
-      productList.value = res.data;        
-      console.log(productList.value);
-    }
-  
     getCategoryList();
-    getProductList();
 
-
+    const categoryClick = async (idx) => {
+      categoryNum.value = idx;
+      const res =  await axios.get('/product/category/'+ idx);            
+      productList.value = res.data;        
+      productTotal.value = productList.value.length;
+      cuurentPage.value = 1;
+    }
+    const numberOfPages = computed(() => {
+      console.log(Math.ceil(productTotal.value / limit));
+      return Math.ceil(productTotal.value / limit);
+    });
     if (route.query.searchKeyword){
-        searchKeyword.value = route.query.searchKeyword;
-    }
-    // alert(route.query.searchKeyword); // 확인차...
-
-    const scroll = function() {
-      const html = document.querySelector("html");
-      const body = document.querySelector("body");
-
-      window.onscroll = () => {
-        console.log("문서 전체 높이:" + body.offsetHeight); // px 단위
-        console.log("눈에 보이는 영역 높이:" + html.clientHeight);
-        console.log("스크롤의 상단 위치:" + html.scrollTop);
-        let scrollStatus = body.offsetHeight - html.clientHeight - html.scrollTop;
-        console.log("현재 스크롤 상태: " + scrollStatus);
-        if(scrollStatus > -50 && scrollStatus < 50) {
-          console.log("제품 추가");
-        }
+      searchKeyword.value = route.query.searchKeyword;
+      const getProductList = async () => {
+        const res =  await axios.get('/product/search/'+ searchKeyword.value);            
+        productList.value = res.data;        
+        productTotal.value = productList.value.length;
+        cuurentPage.value = 1;
       }
+      getProductList();
+    }else {
+      const getProductList = async () => {
+        const res =  await axios.get('/product/findAll');            
+        productList.value = res.data;        
+        productTotal.value = productList.value.length;
+        cuurentPage.value = 1;
+      }
+      getProductList();
     }
 
-    scroll();
+    const movePage = (page) => {
+      cuurentPage.value = page;
+      console.log(cuurentPage);
+    }
+
+
+
+    const moveDetailPage = (idx) => {
+      router.push({
+        name : "",
+        query : {
+          idx : idx,
+        }
+      })
+    }
+    
     return {
       categoryList,
+      productList,
       route,
+      router,
+      categoryNum,
+      numberOfPages,
       searchKeyword,
-      productPages,
+      productTotal,
       cuurentPage,
       limit,
-      scroll,
-      productList,
       getCategoryList,
-      getProductList,
+      categoryClick,
+      movePage,
+      moveDetailPage,
     }
   }
 }
@@ -189,7 +202,7 @@ export default {
 }
 .pro-name {
     width: 180px;
-    font-size: 1.2em;
+    font-size: 18px;
     white-space:nowrap;
     overflow:hidden;
     text-overflow:ellipsis;
@@ -200,10 +213,15 @@ export default {
 }
 .paging {
     display: flex; 
-    justify-content: space-between; 
+    justify-content: center;
     font-size: 20px; 
-    width: 200px; 
-    margin: 0 auto; 
+    width: 200px;
+    margin: 0 auto;
     color: black;
+}
+
+.cli {
+  background-color: #E9ECFF;
+  border-radius: 5px;
 }
 </style>
