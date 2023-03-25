@@ -56,7 +56,7 @@ import { useRouter } from 'vue-router'
       const router = useRouter();
       const search = function () {
         router.push({
-          name: 'Home',
+          name: 'Home', 
           query: {
             searchKeyword : searchKeyword.value
           }
