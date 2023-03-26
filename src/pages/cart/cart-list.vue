@@ -36,7 +36,7 @@
        <td style="vertical-align: middle;">
          <select class="form-select" 
          aria-label="Default select example" style="width: 70%;"
-         v-model="product.amount">
+         v-model="product.amount" @change="updateAmount(product.idx, product.amount)">
          <option v-for="n in 10" :key="n" :value="n">{{ n }}</option>
          </select>
        </td>
@@ -46,7 +46,7 @@
          <button 
            type="button" 
            class="btn btn-outline-secondary"
-           @click="deleteProduct"
+           @click="deleteProduct" 
            >
            X 삭제
          </button>
@@ -146,11 +146,37 @@ export default {
     const deliveryPrice = 2500;
     
     
+    
     const getCart = async() => {
         const res = await axios.get(`/cart/${idx}`);
         cartProductList.value = res.data.cartProductList;
+        console.log(res);
     }
     getCart();
+
+    
+    const updateAmount = async () => {
+      try{
+      
+      const res = await axios.put('/cartProduct/update', { idx: idx, amount: cartProductList.value.product.idx});
+      cartProductList.value = res.data.cartProductList;
+        console.log(res);
+       
+    }catch (error){
+      console.log(error);
+    }
+    };
+
+    const deleteProduct = async() => {
+      try{ 
+        await axios.delete(`/cartProduct/delete/${idx}`);
+        console.log("delete success");
+        router.go(0);
+      }catch (error) {
+        console.error(error);
+      }
+
+    }
     
     
   
@@ -171,7 +197,8 @@ export default {
     deliveryPrice,
     productIdx,
     cartProductList,
-    
+    updateAmount,
+    deleteProduct,
   
   }
    
