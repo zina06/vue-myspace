@@ -32,21 +32,23 @@
         <span id="ProductName" class="product-name">{{ product.product.name }}</span>
       </div>
       </td>
-       <td style="vertical-align: middle;">{{ product.product.price }}</td>
+       <td style="vertical-align: middle;">{{ product.product.price }}원</td>
        <td style="vertical-align: middle;">
+        <div style="display: flex; justify-content: center; align-items: center;">
          <select class="form-select" 
          aria-label="Default select example" style="width: 70%;"
-         v-model="product.amount" @change="updateAmount(product.idx, product.amount)">
+         v-model="product.amount" @change="updateAmount(product.idx, product.amount)" :idx = product.idx>
          <option v-for="n in 10" :key="n" :value="n">{{ n }}</option>
          </select>
+        </div>
        </td>
-       <td style="color: #cc0000; vertical-align: middle;">{{ product.product.price * product.amount }}</td>
+       <td style="color: #cc0000; vertical-align: middle;">{{ product.product.price * product.amount }}원</td>
        <td style="vertical-align: middle;">
     
          <button 
            type="button" 
            class="btn btn-outline-secondary"
-           @click="deleteProduct" 
+           @click="deleteProduct(product.idx)" :idx= product.idx 
            >
            X 삭제
          </button>
@@ -108,7 +110,7 @@
         <button 
           type="button" 
           class="btn btn-info"
-          style="margin-top: 15px; font-size: large; padding:15px"
+          style="margin-top: 15px; font-size: large; color: #FFF; padding:15px"
           >
           {{cartProductList.length}}개 상품 구매하기
         </button>
@@ -132,6 +134,7 @@ export default {
     }, 0)
   }
 },
+
   setup(){
     const router = useRouter();
     const route = useRoute();
@@ -155,28 +158,28 @@ export default {
     getCart();
 
     
-    const updateAmount = async () => {
+    const updateAmount = async (idx, amount) => {
       try{
-      
-      const res = await axios.put('/cartProduct/update', { idx: idx, amount: cartProductList.value.product.idx});
-      cartProductList.value = res.data.cartProductList;
-        console.log(res);
+    await axios.put('/cartProduct/update', { idx: idx, amount: amount});
+    
        
     }catch (error){
       console.log(error);
     }
     };
 
-    const deleteProduct = async() => {
+    const deleteProduct = async(idx) => {
       try{ 
         await axios.delete(`/cartProduct/delete/${idx}`);
         console.log("delete success");
-        router.go(0);
+        router.go(0);  
       }catch (error) {
         console.error(error);
       }
 
     }
+
+    
     
     
   
