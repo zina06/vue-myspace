@@ -11,21 +11,21 @@
                   <div class="review-score">
                     <div>
                       <label for="durability">내구성</label>
-                        <select id="durability" v-model="updateScore.durability">
+                        <select id="durability" v-model="insertScore.durability">
                           <option v-for="num in 6" :key="num" :value="num - 1">{{ num - 1 }}</option>
                         </select>
                       <label for="price">가격</label>
-                        <select  id="price" v-model="updateScore.price">
+                        <select  id="price" v-model="insertScore.price">
                           <option v-for="num in 6" :key="num" :value="num - 1">{{ num - 1 }}</option>
                         </select>
                     </div>
                     <div>
                       <label for="design">디자인</label>
-                        <select  id="design" v-model="updateScore.design">
+                        <select  id="design" v-model="insertScore.design">
                           <option v-for="num in 6" :key="num" :value="num - 1">{{ num - 1 }}</option>
                         </select>
                       <label for="delivery">배송</label>
-                        <select  id="delivery" v-model="updateScore.delivery">
+                        <select  id="delivery" v-model="insertScore.delivery">
                           <option v-for="num in 6" :key="num" :value="num - 1">{{ num - 1 }}</option>
                         </select>
                     </div>
@@ -33,11 +33,11 @@
               </div>
             </div>
             <div class="review-content">
-              <textarea name="content" id="content" cols="100" rows="10" v-model="updateReview.content"></textarea>
+              <textarea name="content" id="content" cols="100" rows="10" v-model="insertReview.content"></textarea>
             </div>
         </div>
             <div class="review-button">
-              <button type="submit">수정</button>
+              <button type="submit">작성</button>
               <button @click.prevent="cancel">취소</button>
             </div>
        </div>
@@ -56,41 +56,42 @@ export default {
     let reviewData = ref(null);
     const router = useRouter();
     const route = useRoute();
-    const updateReview = ref({
+    const insertReview = ref({
       idx: null,
-      content: null,
+      member: {
+        idx: 1 // 프린시펄
+      },
+      product: {
+        idx: 1
+      }, 
+      order: {
+        idx: 1
+      }, // router.query.orderIdx
+      content: '',
     });
-    const updateScore = ref({
+    const insertScore = ref({
       idx: null,
-      durability: null,
-      price: null,
-      design: null,
-      delivery: null,
+      durability: 0,
+      price: 0,
+      design: 0,
+      delivery: 0,
+      review: {
+        idx: null,
+      }
     });
     const getProduct = async () => { 
       const res = await axios.get('/product/' + 1); // router.query.productIdx
       productData.value = res.data;
       console.log(productData.value);
+      insertReview.value.product.idx = productData.value.idx;
     }    
-    const getReview = async () => { 
-      const res = await axios.get('/review/' + 1); // router.query.reviewIdx
-      reviewData.value = res.data;
-      console.log(reviewData.value);
-      console.log(reviewData.value.score);
-      updateReview.value.idx = reviewData.value.idx;
-      updateReview.value.content = reviewData.value.content;
-      updateScore.value.idx = reviewData.value.score.idx;
-      updateScore.value.durability = reviewData.value.score.durability;
-      updateScore.value.price = reviewData.value.score.price;
-      updateScore.value.design = reviewData.value.score.design;
-      updateScore.value.delivery = reviewData.value.score.delivery;
-    }
     getProduct();
-    getReview();
+
     const submitForm = async () => {
-      console.log(updateReview.value);
-      await axios.put('/review/update', updateReview.value)
-      await axios.put('/score/update', updateScore.value)
+      console.log(insertReview.value);
+      const res = await axios.post('/review/save', insertReview.value);
+      insertScore.value.review.idx = res.data.idx;
+      await axios.post('/score/save', insertScore.value);
     }
     const cancel = () => {
       router.push({
@@ -102,8 +103,8 @@ export default {
       reviewData,
       router,
       route,
-      updateReview,
-      updateScore,
+      insertReview,
+      insertScore,
 
       submitForm,
       cancel,

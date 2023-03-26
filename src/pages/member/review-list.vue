@@ -9,7 +9,7 @@
             <div class="col-lg-12">
               <div class="main-profile">
                 <div class="heading-section" style="margin-bottom: 10px;">
-                  <h4>사용자 님, 리뷰내역</h4>
+                  <h4>{{userInfo.loginId}} 님, 리뷰내역</h4>
                   </div>
                     <div class="row">
                       <div class="col-lg-12">
@@ -52,7 +52,7 @@
                                       <h4>리뷰내용</h4><span>{{ review.content }}</span>
                                     </li>
                                     <li>
-                                      <button style="border-radius: 7px; margin-right: 10px;" @click="reviewSave(review.idx)">수정</button>
+                                      <button style="border-radius: 7px; margin-right: 10px;" @click="reviewSave(review.idx, review.product.idx)">수정</button>
                                       <button style="border-radius: 7px;"  @click="reviewDelete(review.idx, review.score.idx)" >삭제</button>
                                     </li>
                                   </ul>
@@ -86,25 +86,32 @@ export default {
   components : {commonPrincipal},
 
   setup() {
-    const principal = ref(null);
+    const userInfo = ref({
+      idx : null,
+      loginId : '',
+    });
     const onPrincipal = function (principal) {
-      principal.value = principal;
+      userInfo.value.idx = principal.value.idx;
+      userInfo.value.loginId = principal.value.loginId;
     };
+
+
+
     const router = useRouter();
     let reviewList = ref(null);
     const getReviewList = async () => {
-        const res = await axios.get('/review/member/' + principal.value);
+        const res = await axios.get('/review/member/' + 1);
         reviewList.value = res.data;
         console.log(res.data);
     }
     getReviewList();
 
-    const reviewSave = (reviewIdx) => {
+    const reviewSave = (reviewIdx, productIdx) => {
       router.push({
         name: "ReviewSave",
         query: {
-          idx : reviewIdx,
-          update : true
+          reviewIdx : reviewIdx,
+          productIdx : productIdx
         }
       });
     }
@@ -115,6 +122,7 @@ export default {
         location.reload();
     }
     return {
+      userInfo,
       onPrincipal,
       router,
       reviewList,

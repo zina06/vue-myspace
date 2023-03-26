@@ -3,37 +3,41 @@
 </template>
 <script>
 import axios from 'axios';
-import { ref } from 'vue'; 
+import { useRouter } from 'vue-router';
+import { ref, onMounted } from 'vue';
 export default {
     name: "common-principal",
   setup (props, context) {
-    let principal = ref(null);
-    // const getLogin = async () => {
-    //   try {
-    //     const res = await axios.post('/login', {
-    //       loginId: "23",
-    //       password: "1234"
-    //     });
-    //     console.log(res.data);
-    //   } catch (error) {
-    //     console.error(error);
-    //     context.emit("principal", error);
-    //   }
-    // }
-    // getLogin();
+    const router = useRouter();
+    const data = ref({
+      idx : null,
+      loginId : '',
+    })
     const getPrincipal = async () => {
       try {
+        await axios.post('/login', {
+          loginId: "23",
+          password: "1234"
+        });
         const res = await axios.get('/member/principal');
-        principal.value = res.data;
-        context.emit("principal", principal.value);
+        data.value.idx = res.data.idx;
+        data.value.loginId = res.data.loginId;
+        context.emit("principal", data);
       } catch (error) {
-        context.emit("principal", null);
+        alert("회원 인증 실패");
+        router.push({
+          name: 'Home'
+        })
+        location.replace("/");
       }
     }
-    getPrincipal();
+    onMounted(() => {
+      getPrincipal();
+    });
+
     return {
-        principal,
-        getPrincipal,
+      router,
+      getPrincipal,
     }
   }
 }

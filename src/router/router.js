@@ -3,6 +3,7 @@ import Home from "@/pages/myspace-home.vue";
 import Myhome from "@/pages/member/mypage-home.vue"
 import ReviewList from "@/pages/member/review-list.vue"
 import ReviewSave from "@/pages/member/review-save.vue"
+import ReviewInsert from "@/pages/member/review-insert.vue"
 
 const router = createRouter({
     history: createWebHistory(),
@@ -27,6 +28,11 @@ const router = createRouter({
             path: "/mypage/review/save",
             name: "ReviewSave",
             component: ReviewSave
+        },
+        {
+            path: "/mypage/review/insert",
+            name: "ReviewInsert",
+            component: ReviewInsert
         }
     ]
 });
