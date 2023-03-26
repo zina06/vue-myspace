@@ -1,90 +1,188 @@
 <template>
+  <div class = "cart-wrapper">
+    
     <div class = "cart-container">
-  <h1>장바구니</h1>
-  
- 
+
    <div>
-   <table class="table">
-   <thead>
+   <table class="table table-bordered">
+   <thead style="background-color: #FAFAFA;">
      <tr>
-       <th colspan="2">상품</th>
-       <th scope="col">판매가</th>
-       <th scope="col">수량</th>
-       <th scope="col">구매가</th>
-       <th scope="col">삭제</th>
+       <th scope="col-2" style="width: 40%;">상품정보</th>
+       <th scope="col" style="width: 15%;">판매가</th>
+       <th scope="col" style="width: 15%;">수량</th>
+       <th scope="col" style="width: 15%;">구매가</th>
+       <th scope="col" style="width: 15%;">삭제</th>
        
      </tr>
    </thead>
    <tbody>
-     <tr>
-       <td>상품1</td>
-       <td><img src="image01.PNG" class="img-fluid" alt="..."></td>
-       <td>100000</td>
-       <td>
+     <tr v-for="product in cartProductList" :key="product.idx">
+      <td style="display: flex; align-items: center; padding: 25px">
+        <div class="form-check" style="display: flex; align-items: center;">
+          <input class="form-check-input" 
+                type="checkbox" 
+                value="" 
+                id="flexCheckChecked"
+                style="width: 15px; height: 15px; "
+                checked />
+        </div>
+        <img class="product-image" :src="product.product.image_url" alt="" >
+        <div id = "product-info">
+        <span id="brandName" class="brand-name">{{ product.product.brand.name }}</span>
+        <span id="ProductName" class="product-name">{{ product.product.name }}</span>
+      </div>
+      </td>
+       <td style="vertical-align: middle;">{{ product.product.price }}</td>
+       <td style="vertical-align: middle;">
          <select class="form-select" 
-         aria-label="Default select example" >
-           <option value="1">1</option>
-           <option value="2">2</option>
-           <option value="3">3</option>
+         aria-label="Default select example" style="width: 70%;"
+         v-model="product.amount">
+         <option v-for="n in 10" :key="n" :value="n">{{ n }}</option>
          </select>
        </td>
-       <td>100000</td>
-       <td>
+       <td style="color: #cc0000; vertical-align: middle;">{{ product.product.price * product.amount }}</td>
+       <td style="vertical-align: middle;">
     
          <button 
            type="button" 
            class="btn btn-outline-secondary"
+           @click="deleteProduct"
            >
-           삭제
+           X 삭제
          </button>
        </td>
      </tr>
-     
-     
    </tbody>
  </table>
  </div>
+ <div id = buttonarea style="display: flex; align-items: center">
+ <button 
+    type="button" 
+    class="btn btn-outline-secondary"
+    style="margin-top: 15px; "
+    
+  >
+  선택상품 주문
+  </button>
+  <button 
+    type="button" 
+    class="btn btn-outline-secondary"
+    style="margin-top: 15px; margin-left: 5px;"
+  >
+  전체상품 주문
+  </button>
 </div>
-<div class = "cart-container2" style= "display: flex;">
-  <ol class="list-group col-3">
-  <li class="list-group-item d-flex justify-content-between align-items-start ">
+</div>
+
+<div class = "cart-container2" >
+  <ol class="list-group">
+  <li class="list-group-item d-flex justify-content-between align-items-start " style="padding: 20px;">
     <div class="ms-2 me-auto">
       <div class="fw-bold">총 상품 금액</div>
     </div>
-    <span>10000</span>
+    <span>{{ totalAmount }}원</span>
   </li>
-  <li class="list-group-item d-flex justify-content-between align-items-start">
+  <li class="list-group-item d-flex justify-content-between align-items-start" style="padding: 20px;">
     <div class="ms-2 me-auto">
       <div class="fw-bold">배송비</div>
     </div>
-    <span>2500</span>
-  </li>
-  <li class="list-group-item d-flex justify-content-between align-items-start">
-    <div class="ms-2 me-auto">
-      <div class="fw-bold">결제금액</div>
+    <div v-if="totalAmount >= 30000">
+      <span>0원</span>
     </div>
-    <span>12500</span>
+    <div v-else>
+      <span>{{deliveryPrice}}원</span>
+    </div>
   </li>
-  <button 
+  <li class="list-group-item d-flex justify-content-between align-items-start" style="padding: 15px;">
+    <div class="ms-2 me-auto">
+      <div class="fw-bold" style="font-weight: bold; font-size: large;" >결제금액</div>
+    </div>
+    <div v-if="totalAmount >= 30000" class="fw-bold" style="font-weight: bold; font-size: large;">
+      <span>{{ totalAmount }}원</span>
+    </div>
+    <div v-else class="fw-bold" style="font-weight: bold; font-size: large;">
+      <span>{{totalAmount + 2500}}원</span>
+    </div>
+  </li>
+  
+        <button 
           type="button" 
           class="btn btn-info"
+          style="margin-top: 15px; font-size: large; padding:15px"
           >
-          1개 상품 구매하기
+          {{cartProductList.length}}개 상품 구매하기
         </button>
-                    
+                  
 </ol>
 </div>
-
+</div>
 </template>
 
 <script>
-export default {
+import {useRoute, useRouter} from 'vue-router';
+import axios from 'axios';
+import { ref } from "vue";
 
+
+export default {
+  computed: {
+  totalAmount() {
+    return this.cartProductList.reduce((acc, product) => {
+      return acc + (product.product.price * product.amount)
+    }, 0)
+  }
+},
+  setup(){
+    const router = useRouter();
+    const route = useRoute();
+    const brandName = ref('');
+    const productName = ref('');
+    const sellPrice = ref('');
+    const image_url = ref('');
+    const amount = ref('');
+    const idx = 2
+    const productIdx = ref('');
+    let cartProductList = ref(null);
+    const deliveryPrice = 2500;
+    
+    
+    const getCart = async() => {
+        const res = await axios.get(`/cart/${idx}`);
+        cartProductList.value = res.data.cartProductList;
+    }
+    getCart();
+    
+    
+  
+  
+
+    
+
+  return{
+    route,
+    router,
+    brandName,
+    productName,
+    sellPrice,
+    image_url,
+    idx,
+    getCart,
+    amount,
+    deliveryPrice,
+    productIdx,
+    cartProductList,
+    
+  
+  }
+   
+
+  }
 }
 </script>
 
 <style>
 @import "@/assets/css/cart-list.css";
+
 
 
 </style>
