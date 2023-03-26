@@ -5,6 +5,7 @@ import ReviewLIst from "@/pages/member/review-list.vue"
 import ReviewInsert from "@/pages/member/review-insert.vue"
 import CartList from "@/pages/cart/cart-list.vue"
 
+import ProductDetail from "@/pages/product/product-detail.vue"
 
 const router = createRouter({
     history: createWebHistory(),
@@ -33,6 +34,11 @@ const router = createRouter({
             path:"/cart/list",
             name:"CartList",
             component: CartList
+        },
+        {
+            path: "/product/detail/:idx",
+            name: "ProductDetail",
+            component: ProductDetail
         }
     ]
 });
