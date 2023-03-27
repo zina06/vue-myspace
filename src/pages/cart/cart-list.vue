@@ -145,7 +145,7 @@ export default {
     const sellPrice = ref('');
     const image_url = ref('');
     const amount = ref('');
-    const idx = 2
+    const idx = 2;
     const productIdx = ref('');
     let cartProductList = ref(null);
     const deliveryPrice = 2500;
