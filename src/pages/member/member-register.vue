@@ -30,7 +30,7 @@
 									</form>
 								</div>								
 								<div class="main-button">
-									<button @click="submitForm">회원가입</button>
+									<button @click="submitForm" class="btn btn-primary" style="background-color: #1EDDFF;">회원가입</button>
 								</div>
 							</div>
 						</div>

@@ -10,8 +10,6 @@
 								<h4><em>MY SPACE </em> 로그인</h4>
 								<div class="register-div">
 									<form @submit.prevent="loginSubmit" name="form-member-login" onsubmit="return true;">
-									<!-- <form @submit.prevent="loginSubmit" method="POST" action="member/login" onsubmit="return true;"> -->
-										<!-- <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.tokzen}"/> -->
 										<input class="form-control" v-model="loginMember.loginId" style="text-align: center; margin: auto; width: 50%;" type="text"
                                         placeholder="아이디를입력하세요" name="loginId" onfocus="this.placeholder=''" onblur="this.placeholder='아이디를 입력하세요'"/>
                                         <br>
