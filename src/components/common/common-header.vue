@@ -30,7 +30,9 @@
             <ul class="nav">
               <li><router-link to="/" >쇼핑</router-link></li> 
               <li><router-link to="/cart/list" >장바구니</router-link></li>
-              <li><router-link to="/member/register" >회원가입</router-link></li>
+              <li v-if="!member"><router-link to="/member/register" >회원가입</router-link></li>
+              <li v-if="!member"><router-link to="/login" >로그인</router-link></li>
+              <li v-if="member"><a @click="logout" >로그아웃</a></li>
               <li><router-link to="/mypage/home">프로필 <img src="@/assets/images/profile_images.webp" alt=""/></router-link></li>
             </ul>
             <a class="menu-trigger">
@@ -46,6 +48,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router'
   export default { 
@@ -61,10 +64,34 @@ import { useRouter } from 'vue-router'
           }
         })
       }
+      let member = ref('');
+      const getMember = async () => {
+        await axios.get('/member/principal').then((res) => {
+        member.value = res.data;});
+      }
+      (async () => {
+        await getMember();
+      })();
+
+      axios.defaults.xsrfHeaderName = 'X-CSRF-TOKEN';
+      axios.defaults.xsrfCookieName = 'XSRF-TOKEN';
+
+      const logout = () => {
+        axios.post('/logout').then(response => {
+          alert("로그아웃");
+          
+        }).catch(error => {
+        });
+        router.push({
+            name: "Home"
+          })
+      }
       return {
         searchKeyword,
         router,
         search,
+        member,
+        logout,
       }
     }
   }

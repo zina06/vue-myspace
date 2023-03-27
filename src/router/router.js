@@ -5,7 +5,7 @@ import ReviewList from "@/pages/member/review-list.vue"
 import ReviewSave from "@/pages/member/review-save.vue"
 import ReviewInsert from "@/pages/member/review-insert.vue"
 import MemberRegister from "@/pages/member/member-register.vue"
-import MemberLogin from "@/pages/member/member-login.vue"
+import Login from "@/pages/member/member-login.vue"
 import CartList from "@/pages/cart/cart-list.vue"
 
 import ProductDetail from "@/pages/product/product-detail.vue"
@@ -46,9 +46,9 @@ const router = createRouter({
             component : MemberRegister
         },
         {
-            path : "/member/login",
-            name : "MemberLogin",
-            component : MemberLogin
+            path : "/login",
+            name : "Login",
+            component : Login
         },
         {
             path:"/cart/list",

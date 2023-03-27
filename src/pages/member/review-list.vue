@@ -51,7 +51,7 @@
                                       <h4>리뷰내용</h4><span>{{ review.content }}</span>
                                     </li>
                                     <li>
-                                      <button style="border-radius: 7px; margin-right: 10px;" @click="reviewSave(review.idx, review.product.idx)">수정</button>
+                                      <button style="border-radius: 7px; margin-right: 10px;" @click="reviewSave(review.idx)">수정</button>
                                       <button style="border-radius: 7px;"  @click="reviewDelete(review.idx, review.score.idx)" >삭제</button>
                                     </li>
                                   </ul>
@@ -94,22 +94,18 @@ export default {
         console.log(member.value.idx);
         const res = await axios.get('/review/member/' + member.value.idx);
         reviewList.value = res.data;
-        console.log(res.data);
     }
     
     (async () => {
       await getMember();
-      console.log(member.value.idx);
       await getReviewList();
-      console.log(reviewList.value)
     })();
     
-    const reviewSave = (reviewIdx, productIdx) => {
+    const reviewSave = (reviewIdx) => {
       router.push({
         name: "ReviewSave",
         query: {
           reviewIdx : reviewIdx,
-          productIdx : productIdx
         }
       });
     }

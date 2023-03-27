@@ -5,9 +5,9 @@
       <div class="review-box">
         <div>
             <div class="review-data">
-              <div class="product-img"><img  v-bind:src="productData.image_url" alt="" ></div>
+              <div class="product-img"><img  v-bind:src="reviewData.product.image_url" alt="" ></div>
                 <div class="product-name">
-                  <span>{{productData.name}}</span>
+                  <span>{{reviewData.product.name}}</span>
                   <div class="review-score">
                     <div>
                       <label for="durability">내구성</label>
@@ -52,7 +52,6 @@ import { useRouter, useRoute } from 'vue-router'
 export default {
   
   setup () {
-    let productData = ref(null);
     let reviewData = ref(null);
     const router = useRouter();
     const route = useRoute();
@@ -73,16 +72,9 @@ export default {
         await axios.get('/member/principal').then((res) => {
         member.value = res.data;});
     }
-    const getProduct = async () => { 
-      const res = await axios.get('/product/' + router.query.productIdx); // router.query.productIdx
-      productData.value = res.data;
-      console.log(productData.value);
-    }    
     const getReview = async () => { 
-      const res = await axios.get('/review/' + router.query.reviewIdx); // router.query.reviewIdx
+      const res = await axios.get('/review/' + route.query.reviewIdx); // router.query.reviewIdx
       reviewData.value = res.data;
-      console.log(reviewData.value);
-      console.log(reviewData.value.score);
       updateReview.value.idx = reviewData.value.idx;
       updateReview.value.content = reviewData.value.content;
       updateScore.value.idx = reviewData.value.score.idx;
@@ -94,14 +86,15 @@ export default {
 
     (async () => {
       await getMember();
-      await getProduct();
       await getReview();
-    });
+    })();
     
     const submitForm = async () => {
-      console.log(updateReview.value);
       await axios.put('/review/update', updateReview.value)
       await axios.put('/score/update', updateScore.value)
+      router.push({
+        name: "ReviewList"
+      })
     }
     const cancel = () => {
       router.push({
@@ -109,7 +102,6 @@ export default {
       });
     }
     return {
-      productData,
       reviewData,
       router,
       route,
