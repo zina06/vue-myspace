@@ -148,8 +148,8 @@ export default {
 
     const moveDetailPage = (idx) => {
       router.push({
-        name : "",
-        query : {
+        name : "ProductDetail",
+        params : {
           idx : idx,
         }
       })
