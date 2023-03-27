@@ -1,6 +1,6 @@
 .order-container {
   width: 1000px;
-  margin: 110px auto 0;
+  margin: 70px auto 0;
   padding: 60px 0;
 }
 
@@ -16,6 +16,7 @@
 
 .col-8{
   display: inline-block;
+  padding-right: 10px;
 }
 
 .col-8 .table{
@@ -33,10 +34,14 @@
 } 
 
 .col-3{
+  width: 370px;
   display: inline-block;
   position: fixed;
   border: 2px solid #dfdfdf;
   border-radius: 10px;
+}
+.col-3 .sub{
+  margin-left: 20px;
 }
 
 .col-3 #sstitle{
