@@ -8,11 +8,11 @@
                 <tbody>
                     <tr>
                         <th scope="col">배송지</th>
-                        <td>{{ delivery_name }}</td>
+                        <td>{{ address }}</td>
                     </tr>
                     <tr>
                         <th scope="row">주문자</th>
-                        <td>{{ address }}</td>
+                        <td>{{ delivery_name }}</td>
                     </tr>
                     <tr>
                         <th scope="row">결제수단</th>
@@ -52,7 +52,7 @@ export default {
     const route = useRoute();
     const orderFindAsc = async () => {
         //const res = await axios.get(`/order/${idx}`);
-        const res = await axios.get(`/order/recently/` + 1);
+        const res = await axios.get(`/order/recently/` + 2);
         console.log(res.data);
         console.log(res.data.delivery_name);
                 console.log(res.data.address);
