@@ -146,21 +146,40 @@ export default {
     const sellPrice = ref('');
     const image_url = ref('');
     const amount = ref('');
-    const idx = 2;
     const productIdx = ref('');
     let cartProductList = ref(null);
     const deliveryPrice = 2500;
+    const idx = 2;
+    const member = ref();
+    const memberCart = ref();
     
-    
+    const getMember = async () => {
+            const result = await axios.get("/member/principal");
+            member.value = result.data;
+            if(member.value == null){
+              router.push({name:"MemberLogin"});
+            }
+            console.log("principal -> " + member.value.idx);
+            getMemberCart();
+        }
+        getMember();
+
+    const getMemberCart = async () => {
+      const memberIdx = member.value.idx;
+      const result = await axios.get(`/cart/member/${memberIdx}`);
+      memberCart.value = result.data;
+      console.log("memberCart -> " + memberCart.value.idx);
+      
+      getCart();
+    }
     
     const getCart = async() => {
-        const res = await axios.get(`/cartProduct/cart/${idx}`);
+        const memberCartIdx = memberCart.value.idx;
+        const res = await axios.get(`/cartProduct/cart/${memberCartIdx}`);
         cartProductList.value = res.data;
         console.log(res.data);
         console.log();
     }
-    getCart();
-
     
     const updateAmount = async (idx, amount) => {
       try{

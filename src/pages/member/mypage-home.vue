@@ -136,9 +136,12 @@ export default {
         //function
         const getMember = async () => {
             const result = await axios.get("/member/principal");
+            console.log("principal -> " + result.data);
             member.value = result.data;
+            if(member.value == null){
+                router.push({name:"MemberLogin"});
+            }
             updateMember.value = {...result.data};
-            console.log(updateMember.value)
 
             getOrderListByMember();
         }
