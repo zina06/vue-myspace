@@ -20,7 +20,7 @@
                     <div class="col-sm-7">
                         <input name="ADDRESS" v-model="address" type="text" class="form-control" placeholder="주소">
                     </div>
-                    <select id="dil-select" v-model="deliveryRequest" class="form-select" style="width: 85%">
+                    <select id="dil-select" v-model="deliveryRequest" class="form-select" style="width: 88%">
                         <option disabled value="">배송지 요청사항을 입력하세요</option>
                         <option value="부재시 문앞에 놓아주세요">부재시 문앞에 놓아주세요</option>
                         <option value="배송전에 미리 연락주세요">배송전에 미리 연락주세요</option>
@@ -203,7 +203,7 @@
             let orderIdx = ref(null);
             const res = await axios.post('/order/save', {
                 member : {
-                    idx: 1
+                    idx: 2
                 },
                 cart : {
                     idx: cartIdx
