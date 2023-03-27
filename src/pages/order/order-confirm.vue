@@ -49,21 +49,21 @@ export default {
     const payment = ref('');
     const price = ref('');
     const regdate = ref('');
-
     const route = useRoute();
-    const idx = route.params.idx;
-    //const idx=1;
-    console.log(idx);
     const orderFindAsc = async () => {
-      //const res = await axios.get(`/order/${idx}`);
-      const res = await axios.get(`/order/recently/${idx}`);
-      const order = res.data;
-
-      delivery_name.value = order.delivery_name;
-      address.value = order.address;
-      payment.value = order.payment;
-      price.value = order.price;
-      regdate.value = order.regdate;
+        //const res = await axios.get(`/order/${idx}`);
+        const res = await axios.get(`/order/recently/` + 1);
+        console.log(res.data);
+        console.log(res.data.delivery_name);
+                console.log(res.data.address);
+                        console.log(res.data.payment);
+                                console.log(res.data.price);
+                                        console.log(res.data.regdate);
+        delivery_name.value = res.data.delivery_name;
+        address.value = res.data.address;
+        payment.value = res.data.payment;
+        price.value = res.data.price;
+        regdate.value = res.data.regdate;
     };
 
     orderFindAsc();

@@ -162,9 +162,9 @@
         const memberInfo = ref("");
         const cartProductList = ref([]);
 
-        const cartIdx=route.query.cartIdx;
-        //const idx=route.params.idx;
 
+        const cartIdx = route.query.cartIdx;
+        //const idx=route.params.idx;
         // 결제금액관련계산식
         let totalProductPrice = computed(() => { // 상품 가격과 개수를 곱한 총 상품 금액을 계산하는 computed 속성
             let sum = 0;
@@ -192,27 +192,21 @@
         memberInfo.value = memberRes.data;
         };
         memberFind();
-
-
+        console.log(memberInfo.value);
         //주문상품정보
         const cartFind = async() => {
             const cartRes = await axios.get(`/cartProduct/cart/${cartIdx}`);
             cartProductList.value = cartRes.data;
         }
         cartFind();
-
+        console.log(cartProductList.value);
+        
         //saveOrder
-        const saveOrder = async () => {
-            await memberFind();// memberInfo의 idx 값을 가져오기 위해 memberFind 함수를 호출
-            // const memberRes = await axios.get(`/member/${idx}`);
-            // memberInfo.value = memberRes.data;
-            // const res = await axios.get(`/cart/${idx}`);
-            // const cart = res.data;
-
-            console.log("멤버번호찍어보는거야: "+memberInfo.value.idx);
-            axios.post('/order/save', {
+        const saveOrder = async() => {
+            let orderIdx = ref(null);
+            const res = await axios.post('/order/save', {
                 member : {
-                    idx: 2
+                    idx: 1
                 },
                 cart : {
                     idx: cartIdx
@@ -225,18 +219,20 @@
                 payment: payment.value,
                 price: totalPrice.value,
                 delivery_price: deliveryPrice.value
-            }).then(response => {
-                console.log(response.data);
-            }).catch(error => {
-                console.log(error);
             });
-            // router.push({
-            //     name: "OrderConfirm",
-            //     params: {
-            //         idx : orderIdx.value,
-            //     }
-            // });
-        };
+            console.log(res);
+
+            orderIdx.value = res.data.idx;
+            console.log(orderIdx.value);
+            const idx = orderIdx.value;
+            console.log(idx);
+            router.push({
+                name: "OrderConfirm",
+                query: {
+                    idx : idx,
+                }
+            });
+        }
 
         memberFind();
         return {
@@ -258,7 +254,7 @@
             memberInfo,
             totalProductPrice,
             deliveryPrice,
-            totalPrice
+            totalPrice,
         };
     }
     }
