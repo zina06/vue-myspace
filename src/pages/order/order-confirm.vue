@@ -8,27 +8,23 @@
                 <tbody>
                     <tr>
                         <th scope="col">배송지</th>
-                        <th scope="col">{{}}</th>
+                        <td>{{ delivery_name }}</td>
                     </tr>
                     <tr>
                         <th scope="row">주문자</th>
-                        <td>{{}}</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">주문상품</th>
-                        <td>{{}}</td>
+                        <td>{{ address }}</td>
                     </tr>
                     <tr>
                         <th scope="row">결제수단</th>
-                        <td>{{}}</td>
+                        <td>{{ payment }}</td>
                     </tr>
                     <tr>
                         <th scope="row">총결제금액</th>
-                        <td>{{}}</td>
+                        <td>{{ price }}</td>
                     </tr>
                     <tr>
                         <th scope="row">주문일자</th>
-                        <td>{{}}</td>
+                        <td>{{ regdate }}</td>
                     </tr>
                 </tbody>
             </table>
@@ -42,7 +38,46 @@
 </template>
 
 <script>
-    export default {}
+import { useRoute } from 'vue-router';
+import axios from 'axios';
+import { ref } from 'vue';
+
+export default {
+  setup() {
+    const delivery_name = ref('');
+    const address = ref('');
+    const payment = ref('');
+    const price = ref('');
+    const regdate = ref('');
+
+    const route = useRoute();
+    //const idx = route.params.idx;
+    const idx=1;
+
+    const orderFindAsc = async () => {
+      //const res = await axios.get(`/order/${idx}`);
+      const res = await axios.get(`/order/recently/${idx}`);
+      const order = res.data;
+
+      delivery_name.value = order.delivery_name;
+      address.value = order.address;
+      payment.value = order.payment;
+      price.value = order.price;
+      regdate.value = order.regdate;
+    };
+
+    orderFindAsc();
+
+    return {
+      delivery_name,
+      address,
+      payment,
+      price,
+      regdate,
+      route,
+    };
+  },
+};
 </script>
 
 <style>

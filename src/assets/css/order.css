@@ -14,17 +14,59 @@
   font-weight: 700;
 }
 
-.col-7{
+.col-8{
   display: inline-block;
 }
 
-.col-4{
+.col-8 .table.table-bordered{
+  font-size: 13px;
+  text-align: center;
+  width: 90%;
+  margin-left: 30px;
+}
+.col-8 .table.table-bordered th{
+  padding: 3px;
+  vertical-align : middle;
+} 
+.col-8 .table.table-bordered td{
+  padding: 3px;
+  vertical-align : middle;
+} 
+
+.col-8 img{
+  width: 50px;
+  height: 50px;
+} 
+
+.col-3{
   display: inline-block;
+  position: fixed;
+  border: 2px solid #dfdfdf;
+  border-radius: 10px;
 }
 
-.col-4 .btn{
+.col-3 .btn{
    width: 100%;
 }
+
+.col-3 #sstitle{
+  color: rgb(121, 121, 121);
+}
+
+.col-3 .col-sm-6{
+  text-align: right;
+  font-size: 16px;
+}
+
+.col-3 .form-check{
+  margin: 25px auto;
+ }
+
+.col-3 .form-check-label{
+ color: rgb(114, 114, 114);
+ font-weight: bold;
+}
+
 
 .sub{
   padding-top: 40px;
