@@ -169,6 +169,7 @@ export default {
             router.push({
                 name: "ReviewInsert",
                 query: {
+                    memberIdx : member.value.idx,
                     orderIdx : orderIdx,
                     productIdx : productIdx,
                 }
@@ -179,7 +180,8 @@ export default {
             member,
             orderList,
             updateMember,
-            getUpdateMember
+            getUpdateMember,
+            reviewInsert
         }
     }
 }

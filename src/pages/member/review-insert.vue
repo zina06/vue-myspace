@@ -59,7 +59,7 @@ export default {
     const insertReview = ref({
       idx: null,
       member: {
-        idx: member.value.idx // 프린시펄
+        idx: route.query.memberIdx // 프린시펄
       },
       product: {
         idx: route.query.productIdx// 
@@ -95,14 +95,18 @@ export default {
     const submitForm = async () => {
       console.log(insertReview.value);
       const res = await axios.post('/review/save', insertReview.value);
+      console.log(res.data.idx);
       insertScore.value.review.idx = res.data.idx;
-      await axios.post('/score/save', insertScore.value);
+      console.log(insertScore.value.review.idx);
+      await axios.post('/score/save/'+ res.data.idx, insertScore.value);
+      router.push({
+        name: "Myhome",
+      })
     }
 
     (async () => {
       await getMember();
       await getProduct();
-      await submitForm();
     })();
 
     const cancel = () => {

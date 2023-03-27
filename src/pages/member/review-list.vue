@@ -91,7 +91,7 @@ export default {
     
     let reviewList = ref(null);
     const getReviewList = async () => {
-        console.log();
+        console.log(member.value.idx);
         const res = await axios.get('/review/member/' + member.value.idx);
         reviewList.value = res.data;
         console.log(res.data);
@@ -101,7 +101,9 @@ export default {
       await getMember();
       console.log(member.value.idx);
       await getReviewList();
+      console.log(reviewList.value)
     })();
+    
     const reviewSave = (reviewIdx, productIdx) => {
       router.push({
         name: "ReviewSave",

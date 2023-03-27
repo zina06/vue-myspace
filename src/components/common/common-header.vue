@@ -31,7 +31,6 @@
               <li><router-link to="/" >쇼핑</router-link></li> 
               <li><router-link to="/cart/list" >장바구니</router-link></li>
               <li><router-link to="/member/register" >회원가입</router-link></li>
-              <li><router-link to="/logout" >로그아웃</router-link></li>
               <li><router-link to="/mypage/home">프로필 <img src="@/assets/images/profile_images.webp" alt=""/></router-link></li>
             </ul>
             <a class="menu-trigger">
