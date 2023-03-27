@@ -1,0 +1,91 @@
+.order-container {
+  width: 1000px;
+  margin: 110px auto 0;
+  padding: 60px 0;
+}
+
+.order-container h2 {
+    color: #1EDDFF;
+    font-weight: 700;
+ }
+
+ .order-container h5 {
+  color: #171d55;
+  font-weight: 700;
+}
+
+.col-8{
+  display: inline-block;
+}
+
+.col-8 .table{
+  font-size: 13px;
+  text-align: center;
+  width: 90%;
+  margin-left: 30px;
+  padding: 3px;
+  vertical-align : middle;
+}
+
+
+
+.col-8 img{
+  width: 60px;
+  height: 60px;
+} 
+
+.col-3{
+  display: inline-block;
+  position: fixed;
+  border: 2px solid #dfdfdf;
+  border-radius: 10px;
+}
+
+.col-3 .btn{
+   width: 100%;
+}
+
+.col-3 #sstitle{
+  color: rgb(121, 121, 121);
+}
+
+.col-3 .col-sm-6{
+  text-align: right;
+  font-size: 16px;
+}
+
+.col-3 .form-check{
+  margin: 20px auto;
+ }
+
+.col-3 .form-check-label{
+ color: rgb(114, 114, 114);
+ font-weight: bold;
+}
+
+.col-3 .infolabel{
+  color: rgb(147, 146, 146);
+  padding-left: 25px;
+  width: 350px;
+  margin-bottom: 10px;
+  font-size: 13px;
+ }
+
+
+.sub{
+  padding-top: 40px;
+}
+
+.mb-3.row{
+  padding-top: 20px;
+}
+
+#sstitle{
+  padding-left: 30px;
+  color: black;
+}
+
+/* 셀렉트크기맞추기 */
+#dil-select{ 
+  margin-left: 30px;
+}

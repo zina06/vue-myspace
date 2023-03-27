@@ -7,6 +7,8 @@ import ReviewInsert from "@/pages/member/review-insert.vue"
 import CartList from "@/pages/cart/cart-list.vue"
 
 import ProductDetail from "@/pages/product/product-detail.vue"
+import OrderPay from "@/pages/order/order-pay.vue"
+import OrderConfirm from "@/pages/order/order-confirm.vue"
 
 const router = createRouter({
     history: createWebHistory(),
@@ -45,6 +47,17 @@ const router = createRouter({
             path: "/product/detail/:idx",
             name: "ProductDetail",
             component: ProductDetail
+           
+        },
+        {
+            path: "/order/pay",
+            name: "OrderPay",
+            component: OrderPay
+        },
+        {
+            path: "/order/confirm",
+            name: "OrderConfirm",
+            component: OrderConfirm
         }
     ]
 });
