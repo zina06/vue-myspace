@@ -3,7 +3,7 @@
 		<div style="width: 40%; margin-top: 400px; ">
 			<div style="width: 100%; height: 100%; align-items: center; align-content: center;">
 			<span>> {{categoryName}}</span><br><br>
-				  <img v-bind:src="image_url" alt="">  
+				<img v-bind:src="image_url" alt="">  
 			</div>
 		</div>
 		<div style="width: 60%; margin: 10px; margin-top: 150px; display: flex; justify-content: center; ">
@@ -127,7 +127,7 @@ export default {
 			const res = await axios.get(`/product/${idx}`).then((product)=>{
 				console.log(idx);
 				console.log("gg");
-				// console.log(res.data);
+				console.log(product.data);
 				categoryName.value = product.data.category.name
 				brand.value=product.data.brand.name
 				productName.value=product.data.name
