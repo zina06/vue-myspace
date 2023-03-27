@@ -52,7 +52,7 @@
                   <template v-for="(product, index) in productList"  :key="product.idx" >
                   <div class="col-lg-3 col-sm-6 product-info" v-if="(cuurentPage-1)*limit <= index && index < (cuurentPage*limit)">
                     <div class="item" @click="moveDetailPage(product.idx)" >
-                      <img v-bind:src="product.image_url" />
+                      <img v-bind:src="product.image_url"/>
                       <div class="pro-name">{{product.name}}</div>
                       <span>{{product.price}}원</span>
                     </div>
@@ -223,5 +223,9 @@ export default {
 .cli {
   background-color: #E9ECFF;
   border-radius: 5px;
+}
+
+.paging li{
+  padding: 5px;
 }
 </style>
