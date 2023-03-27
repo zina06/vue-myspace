@@ -131,10 +131,11 @@ export default {
         const orderList = ref(null);
         const updateMember = ref(null);
         const router = useRouter();
+        
 
         //function
         const getMember = async () => {
-            const result = await axios.get("/member/8");
+            const result = await axios.get("/member/principal");
             member.value = result.data;
             updateMember.value = {...result.data};
             console.log(updateMember.value)

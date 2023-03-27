@@ -56,12 +56,14 @@ export default ({
 		const submitForm = async()=>{
 			try{
 				const response = await axios.post('/member/save',member.value);
-				console.log(response.data);
-				alert('회원가입 완료');
-				router.push({name: "Home"})
+				if(response != null){
+					alert('회원가입 완료');
+					router.push({name: "Home"})
+				}else{
+					alert("회원가입 실패");				
+				}
 			}catch(error){
 				console.error(error);
-				alert('회원가입 실패');
 			}
 		};
 		
