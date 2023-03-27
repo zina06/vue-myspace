@@ -1,7 +1,8 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Home from "@/pages/myspace-home.vue";
 import Myhome from "@/pages/member/mypage-home.vue"
-import ReviewLIst from "@/pages/member/review-list.vue"
+import ReviewList from "@/pages/member/review-list.vue"
+import ReviewSave from "@/pages/member/review-save.vue"
 import ReviewInsert from "@/pages/member/review-insert.vue"
 import ProductDetail from "@/pages/product/product-detail.vue"
 
@@ -11,7 +12,8 @@ const router = createRouter({
         {
             path: "/",
             name: "Home",
-            component: Home
+            component: Home,
+            props: true,
         },
         {
             path: "/mypage/home",
@@ -20,8 +22,13 @@ const router = createRouter({
         },
         {
             path: "/mypage/review",
-            name: "ReviewLIst",
-            component: ReviewLIst
+            name: "ReviewList",
+            component: ReviewList
+        },
+        {
+            path: "/mypage/review/save",
+            name: "ReviewSave",
+            component: ReviewSave
         },
         {
             path: "/mypage/review/insert",

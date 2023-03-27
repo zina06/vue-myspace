@@ -6,45 +6,33 @@
         <div class="col-12">
           <nav class="main-nav">
             <!-- ***** Logo Start ***** -->
-            <a href="/" class="logo" style="width: 190px; height: 90px;">
-              <img style="width: 200px; height: 50px;  margin-top: 15px;" src="@/assets/images/myspace_logo.png" alt="" />
-            </a>
+            <router-link to="/" class="logo" >
+              <img src="@/assets/images/myspace_logo.png" alt="" />
+            </router-link>
             <!-- ***** Logo End ***** -->
             <!-- ***** Search End ***** -->
-            <div class="search-input" style="display: flex; height: 100%; ">
-              <form id="search" action="/">
-              <div style="">
-                  <div style="width: 35px; height: 35px; position: absolute; top: 28px; left: 9px;">
-                    <img style="width: 100%; height: 100%;" src="@/assets/images/search_icon.png" />
+            <div class="search-input">
+              <form id="search">
+                <!-- <div> -->
+                  <div class="search-img">
+                    <img src="@/assets/images/search_icon.png" />
                   </div>
                   <div>
-                    <input style="margin: 0; margin-top: 20px;"
-                      type="text"
-                      placeholder="쇼핑검색"
-                      id="searchText"
-                      name="searchKeyword"
-                      onkeypress="handle"
-                    />
+                    <input type="text" placeholder="쇼핑검색" id="searchText" name="searchKeyword"  v-model="searchKeyword"  @keyup.enter="search" />
                   </div>
-                </div>        
-                </form>      
+                <!-- </div>         -->
+              </form>      
             </div>
 
             <!-- ***** Search End ***** -->
             <!-- ***** Menu Start ***** -->
-
-            <ul class="nav" style="display:flex; align-items: center;">
-              <li><router-link to="/" class="active">쇼핑</router-link></li>
-              <li><router-link to="/cart/list">장바구니</router-link></li>
-              <!-- <sec:authorize access="isAnonymous()"> -->
-              <li><router-link to="/member/register">회원가입</router-link></li>
-              <!-- </sec:authorize> -->
-              <!-- <sec:authorize access="isAuthenticated()"> -->
-              <li><router-link to="/logout">로그아웃</router-link></li>
-              <!-- </sec:authorize> -->
-              <li>
-                <router-link to="/mypage/home">프로필 <img src="@/assets/images/profile_images.webp" alt=""/></router-link>
-              </li>
+            <!-- class="active" 이후 선택한 부분에 active 적용-->
+            <ul class="nav">
+              <li><router-link to="/" >쇼핑</router-link></li> 
+              <li><router-link to="/cart/list" >장바구니</router-link></li>
+              <li><router-link to="/member/register" >회원가입</router-link></li>
+              <li><router-link to="/logout" >로그아웃</router-link></li>
+              <li><router-link to="/mypage/home">프로필 <img src="@/assets/images/profile_images.webp" alt=""/></router-link></li>
             </ul>
             <a class="menu-trigger">
               <span>Menu</span>
@@ -59,11 +47,66 @@
 </template>
 
 <script>
-export default {
-    name: "common-header"
-}
+import { ref } from 'vue';
+import { useRouter } from 'vue-router'
+  export default { 
+    name: "common-header",
+    setup () {
+      let searchKeyword = ref(null);
+      const router = useRouter();
+      const search = function () {
+        router.push({
+          name: 'Home', 
+          query: {
+            searchKeyword : searchKeyword.value
+          }
+        })
+      }
+      return {
+        searchKeyword,
+        router,
+        search,
+      }
+    }
+  }
 </script>
 
 <style>
+.logo {
+  width: 190px; 
+  height: 90px;
+}
 
+.logo img {
+  width: 100px; 
+  height: 100px;
+}
+
+.search-input {
+  display: flex;
+  height: 100%;
+}
+
+.search-img {
+  width: 35px; 
+  height: 35px; 
+  position: absolute; 
+  top: 28px; 
+  left: 9px;
+}
+
+.search-img img {
+  width: 100%; 
+  height: 100%;
+}
+
+#searchText {
+  margin: 0; 
+  margin-top: 20px;
+}
+
+.nav {
+  display:flex; 
+  align-items: center;
+}
 </style>

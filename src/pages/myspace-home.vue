@@ -41,69 +41,137 @@
           
           <!-- ***** Banner End ***** -->	
           <ul class="category-list" >
-            <!-- <li v-for="category in categoryList">{{category}}</li> -->
-            <li><router-link to="/">카테고리 종류</router-link></li>
-            <li><router-link to="/">카테고리 종류</router-link></li>
-            <li><router-link to="/">카테고리 종류</router-link></li>
-            <li><router-link to="/">카테고리 종류</router-link></li>
-            <li><router-link to="/">카테고리 종류</router-link></li>
+            <li v-for="category in categoryList" :key="category.idx" :class="category.idx === categoryNum ? 'cli' : ''"><a @click="categoryClick(category.idx)">{{category.name}}</a></li>
           </ul>
           
           <!-- ***** Most Popular Start ***** -->
           <div class="most-popular">
-          <div class="row">
-            <div class="col-lg-12">
-            <div class="heading-section">
-            </div>
-            <div class="heading-section">
-            </div>
-              <div class="row" >
-                      <!-- <div v-for="product in productList"> -->
-                      <div class="col-lg-3 col-sm-6 product-info">
-                          <div class="item" >
-                            <img src="/" alt="상품이름" />
-                            <h4><span class="product-name">상품이름</span>
-                            </h4>
-                          </div>
-                      </div>
-                      <!-- </div> -->
+            <div class="row">
+              <div class="col-lg-12">
+                <div class="row" >
+                  <template v-for="(product, index) in productList"  :key="product.idx" >
+                  <div class="col-lg-3 col-sm-6 product-info" v-if="(cuurentPage-1)*limit <= index && index < (cuurentPage*limit)">
+                    <div class="item" @click="moveDetailPage(product.idx)" >
+                      <img v-bind:src="product.image_url" />
+                      <div class="pro-name">{{product.name}}</div>
+                      <span>{{product.price}}원</span>
+                    </div>
                   </div>
+                  </template>
+                </div>
               </div>
             </div>
           </div>       
           <!-- ***** Most Popular End ***** -->
 
-          <div class="paging" style="">
-          <!-- <ul>
-              <c:if test="${pageMaker.prev }">
-              <li class="paginate_button previous">
-                  <a href="${pageMaker.startPage -1 }">Previous</a> 
+
+            <ul class="paging">
+              <li class="paginate_button previous" v-if="cuurentPage != 1">
+                  <a class="page-link" @click="movePage(cuurentPage-1)">Previous</a>
               </li>
-              </c:if>
-          </ul>
-              <c:forEach var="num" begin="${pageMaker.startPage }" end="${pageMaker.endPage }">
-              <li class="paginate_button ${pageMaker.cri.pageNum == num ? "active":""} ">
-                  <a href="${num }">${num }</a>
+              <li v-for="page in numberOfPages" :key="page"  >
+                  <a class="page-link" :class='cuurentPage === page ? "cli" : ""' @click="movePage(page)">{{page}}</a>
               </li>
-              </c:forEach>
-              
-              <c:if test="${pageMaker.next }">
-              <li class="paginate_button next">
-                  <a href="${pageMaker.endPage +1 }">Next</a> 
+              <li class="paginate_button next" v-if="numberOfPages != cuurentPage">
+                  <a class="page-link" @click="movePage(cuurentPage+1)">Next</a>
               </li>
-              </c:if> -->
-          </div>
+            </ul>
+
         </div>
       </div>
     </div>
+    
   </div>
 
 
 </template>
 
 <script>
+import axios from 'axios';
+import { ref, computed } from 'vue';
+import { useRoute, useRouter} from 'vue-router';
 export default {
+  setup () {
+    let categoryList = ref(null);
+    let productList = ref(null);
+    const route = useRoute();
+    const router = useRouter();
+    const categoryNum = ref(0);
+    const searchKeyword = ref('');
+    const productTotal = ref(0);
+    const cuurentPage = ref(1);
+    const limit = 16;
 
+    const getCategoryList = async () => {
+      const res =  await axios.get('/category/findAll');            
+      categoryList.value = res.data;        
+      console.log(categoryList.value);
+    }
+    getCategoryList();
+
+    const categoryClick = async (idx) => {
+      categoryNum.value = idx;
+      const res =  await axios.get('/product/category/'+ idx);            
+      productList.value = res.data;        
+      productTotal.value = productList.value.length;
+      cuurentPage.value = 1;
+    }
+    const numberOfPages = computed(() => {
+      console.log(Math.ceil(productTotal.value / limit));
+      return Math.ceil(productTotal.value / limit);
+    });
+    if (route.query.searchKeyword){
+      searchKeyword.value = route.query.searchKeyword;
+      const getProductList = async () => {
+        const res =  await axios.get('/product/search/'+ searchKeyword.value);            
+        productList.value = res.data;        
+        productTotal.value = productList.value.length;
+        cuurentPage.value = 1;
+      }
+      getProductList();
+    }else {
+      const getProductList = async () => {
+        const res =  await axios.get('/product/findAll');            
+        productList.value = res.data;        
+        productTotal.value = productList.value.length;
+        cuurentPage.value = 1;
+      }
+      getProductList();
+    }
+
+    const movePage = (page) => {
+      cuurentPage.value = page;
+      console.log(cuurentPage);
+    }
+
+
+
+    const moveDetailPage = (idx) => {
+      router.push({
+        name : "ProductDetail",
+        params : {
+          idx : idx,
+        }
+      })
+    }
+    
+    return {
+      categoryList,
+      productList,
+      route,
+      router,
+      categoryNum,
+      numberOfPages,
+      searchKeyword,
+      productTotal,
+      cuurentPage,
+      limit,
+      getCategoryList,
+      categoryClick,
+      movePage,
+      moveDetailPage,
+    }
+  }
 }
 </script>
 
@@ -132,16 +200,28 @@ export default {
 .product-info .item {
     cursor: pointer;
 }
-.product-name {
-    font-size: 1.2em;
+.pro-name {
+    width: 180px;
+    font-size: 18px;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
 }
 
+.item span {
+  text-align: end;
+}
 .paging {
     display: flex; 
-    justify-content: space-between; 
+    justify-content: center;
     font-size: 20px; 
-    width: 200px; 
-    margin: 0 auto; 
+    width: 200px;
+    margin: 0 auto;
     color: black;
+}
+
+.cli {
+  background-color: #E9ECFF;
+  border-radius: 5px;
 }
 </style>
