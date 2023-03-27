@@ -67,13 +67,19 @@ export default {
       design: null,
       delivery: null,
     });
+
+    let member = ref('');
+    const getMember = async () => {
+        await axios.get('/member/principal').then((res) => {
+        member.value = res.data;});
+    }
     const getProduct = async () => { 
-      const res = await axios.get('/product/' + 1); // router.query.productIdx
+      const res = await axios.get('/product/' + router.query.productIdx); // router.query.productIdx
       productData.value = res.data;
       console.log(productData.value);
     }    
     const getReview = async () => { 
-      const res = await axios.get('/review/' + 1); // router.query.reviewIdx
+      const res = await axios.get('/review/' + router.query.reviewIdx); // router.query.reviewIdx
       reviewData.value = res.data;
       console.log(reviewData.value);
       console.log(reviewData.value.score);
@@ -85,8 +91,13 @@ export default {
       updateScore.value.design = reviewData.value.score.design;
       updateScore.value.delivery = reviewData.value.score.delivery;
     }
-    getProduct();
-    getReview();
+
+    (async () => {
+      await getMember();
+      await getProduct();
+      await getReview();
+    });
+    
     const submitForm = async () => {
       console.log(updateReview.value);
       await axios.put('/review/update', updateReview.value)
@@ -104,6 +115,7 @@ export default {
       route,
       updateReview,
       updateScore,
+      member,
 
       submitForm,
       cancel,

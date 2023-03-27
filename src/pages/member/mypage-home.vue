@@ -78,7 +78,7 @@
                                                                         </h4>
                                                                     </a>
                                                                     <span>
-                                                                        <button class="review-insert">리뷰 작성</button>
+                                                                        <button class="review-insert" @click="reviewInsert(order.idx, cartProduct.product.idx)">리뷰 작성</button>
                                                                     </span>
                                                                 </li>
                                                                 <li>
@@ -164,7 +164,16 @@ export default {
             } catch (error) {
                 alert("회원정보를 수정하지 못했습니다.");
             }}
-
+        
+        const reviewInsert = (orderIdx, productIdx) => {
+            router.push({
+                name: "ReviewInsert",
+                query: {
+                    orderIdx : orderIdx,
+                    productIdx : productIdx,
+                }
+            });
+        }
         //return
         return {
             member,

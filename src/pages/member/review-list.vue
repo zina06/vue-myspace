@@ -1,5 +1,4 @@
 <template>
- <common-principal @principal="onPrincipal"/>
   <div class="container" style="box-sizing: border-box; !important;">
     <div class="row">
       <div class="col-lg-12">
@@ -9,7 +8,7 @@
             <div class="col-lg-12">
               <div class="main-profile">
                 <div class="heading-section" style="margin-bottom: 10px;">
-                  <h4>{{userInfo.loginId}} 님, 리뷰내역</h4>
+                  <h4> {{member.loginId}}님, 리뷰내역</h4>
                   </div>
                     <div class="row">
                       <div class="col-lg-12">
@@ -77,35 +76,32 @@
 </template>
 
 <script>
-import commonPrincipal from '@/components/common/common-principal.vue'
 import axios from 'axios';
 import { ref } from 'vue'; 
 import { useRouter } from 'vue-router'
 
 export default {
-  components : {commonPrincipal},
-
   setup() {
-    const userInfo = ref({
-      idx : null,
-      loginId : '',
-    });
-    const onPrincipal = function (principal) {
-      userInfo.value.idx = principal.value.idx;
-      userInfo.value.loginId = principal.value.loginId;
-    };
-
-
-
     const router = useRouter();
+    let member = ref('');
+    const getMember = async () => {
+        await axios.get('/member/principal').then((res) => {
+        member.value = res.data;});
+    }
+    
     let reviewList = ref(null);
     const getReviewList = async () => {
-        const res = await axios.get('/review/member/' + 1);
+        console.log();
+        const res = await axios.get('/review/member/' + member.value.idx);
         reviewList.value = res.data;
         console.log(res.data);
     }
-    getReviewList();
-
+    
+    (async () => {
+      await getMember();
+      console.log(member.value.idx);
+      await getReviewList();
+    })();
     const reviewSave = (reviewIdx, productIdx) => {
       router.push({
         name: "ReviewSave",
@@ -122,9 +118,8 @@ export default {
         location.reload();
     }
     return {
-      userInfo,
-      onPrincipal,
       router,
+      member,
       reviewList,
       getReviewList,
       reviewSave,
