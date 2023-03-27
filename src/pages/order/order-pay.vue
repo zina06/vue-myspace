@@ -58,7 +58,7 @@
                     
                     <div class="col-lg-12">
                         <div class="main-button">
-                            <a href="/order/confirm" @click="saveOrder()">결제하기</a>
+                            <a  @click="saveOrder()">결제하기</a>
                         </div>
                     </div>
                 </div>
@@ -162,7 +162,7 @@
         const memberInfo = ref("");
         const cartProductList = ref([]);
 
-        const idx=1;
+        const cartIdx=route.query.cartIdx;
         //const idx=route.params.idx;
 
         // 결제금액관련계산식
@@ -188,7 +188,7 @@
         //주문자정보
         const memberFind = async () => {
         //const idx = cartProduct.cart.data.member.idx;
-        const memberRes = await axios.get(`/member/${idx}`);
+        const memberRes = await axios.get(`/member/${cartIdx}`);
         memberInfo.value = memberRes.data;
         };
         memberFind();
@@ -196,11 +196,10 @@
 
         //주문상품정보
         const cartFind = async() => {
-            const cartRes = await axios.get(`/cartProduct/cart/${idx}`);
+            const cartRes = await axios.get(`/cartProduct/cart/${cartIdx}`);
             cartProductList.value = cartRes.data;
         }
         cartFind();
-
 
         //saveOrder
         const saveOrder = async () => {
@@ -211,13 +210,12 @@
             // const cart = res.data;
 
             console.log("멤버번호찍어보는거야: "+memberInfo.value.idx);
-        
             axios.post('/order/save', {
                 member : {
-                    idx: 1
+                    idx: 2
                 },
                 cart : {
-                    idx: 1
+                    idx: cartIdx
                 },
                 //member_idx: memberInfo.value.idx,
                 delivery_name: deliveryName.value,
@@ -232,29 +230,35 @@
             }).catch(error => {
                 console.log(error);
             });
+            // router.push({
+            //     name: "OrderConfirm",
+            //     params: {
+            //         idx : orderIdx.value,
+            //     }
+            // });
         };
 
         memberFind();
         return {
-        name,
-        email,
-        phone,
-        idx,
-        price,
-        amount,
-        route,
-        router,
-        cartProductList,
-        deliveryName,
-        addressName,
-        address,
-        deliveryRequest,
-        payment,
-        saveOrder,
-        memberInfo,
-        totalProductPrice,
-        deliveryPrice,
-        totalPrice
+            name,
+            email,
+            phone,
+            cartIdx,
+            price,
+            amount,
+            route,
+            router,
+            cartProductList,
+            deliveryName,
+            addressName,
+            address,
+            deliveryRequest,
+            payment,
+            saveOrder,
+            memberInfo,
+            totalProductPrice,
+            deliveryPrice,
+            totalPrice
         };
     }
     }

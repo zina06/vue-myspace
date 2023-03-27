@@ -51,9 +51,9 @@ export default {
     const regdate = ref('');
 
     const route = useRoute();
-    //const idx = route.params.idx;
-    const idx=1;
-
+    const idx = route.params.idx;
+    //const idx=1;
+    console.log(idx);
     const orderFindAsc = async () => {
       //const res = await axios.get(`/order/${idx}`);
       const res = await axios.get(`/order/recently/${idx}`);

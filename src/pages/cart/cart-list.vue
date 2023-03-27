@@ -112,6 +112,7 @@
           type="button" 
           class="btn btn-info"
           style="margin-top: 15px; font-size: large; color: #FFF; padding:15px"
+          @click="orderBtn"
           >
           {{cartProductList.length}}개 상품 구매하기
         </button>
@@ -155,7 +156,8 @@ export default {
     const getCart = async() => {
         const res = await axios.get(`/cartProduct/cart/${idx}`);
         cartProductList.value = res.data;
-        console.log(res);
+        console.log(res.data);
+        console.log();
     }
     getCart();
 
@@ -181,7 +183,14 @@ export default {
 
     }
 
-    
+    const orderBtn = () => {
+      router.push({
+        name: "OrderPay",
+        query: {
+          cartIdx :  cartProductList.value[0].cart.idx
+        }
+      })
+    }
     
     
   
@@ -204,7 +213,7 @@ export default {
     cartProductList,
     updateAmount,
     deleteProduct,
-  
+    orderBtn,
   }
    
 
