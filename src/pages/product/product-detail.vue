@@ -20,8 +20,23 @@
 				<span style="float: right;"><b>{{ price }}원</b></span><br><br>
 				
 				
-					<button id="cart" style="width: 180px; height: 33px; color: white" type="button" class="btn btn-info"   @click="addProduct">장바구니</button>
+					<button id="cart" 
+					style="width: 180px; height: 33px; color: white" 
+					type="button" 
+					class="btn btn-info"   
+					@click="addProduct">장바구니</button>
 			
+					<div class="modal-wrap" v-show="modalCheck">
+  <div class="modal-container">
+    
+    ...  <!--  모달창 content  -->
+    
+    <div class="modal-btn">
+      <button @click="modalOpen">닫기</button>
+      <button @click="modalOpen">확인</button>
+    </div>
+  </div>
+</div>
 			</div>
 		</div>
 	</div>
@@ -107,11 +122,16 @@
 
 </template>
 
+
 <script>
+
 import {useRoute, useRouter} from 'vue-router';
 import axios from 'axios';
 import {ref} from 'vue';
+import swal from 'sweetalert';
+
 export default {
+	
 	setup(){
 		const router=useRouter();
         const route = useRoute();
@@ -147,15 +167,19 @@ export default {
 
 		const addProduct = async() =>{
          try{
-            console.log(idx);
-          const res = await axios.post(`/cartProduct/save`, { "cart" : {"idx" : 2}, "product" : {"idx" : idx}, amount:1 });
-         console.log("add success");
-         console.log(res);
-         
-         }catch(error){
-            console.error(error);
-         }
-         }
+            	console.log(idx);
+          		const res = await axios.post(`/cartProduct/save`, { "cart" : {"idx" : 2}, "product" : {"idx" : idx}, amount:1 });
+         		console.log("add success");
+         		console.log(res);
+		 		showModal("장바구니에 담았습니다.");   
+         	}catch(error){
+            	console.error(error);
+        	}
+        }
+
+		 function showModal(message) {
+			window.swal(`${message}`);
+		}
 
 		const getReviewList=async()=>{
 			
@@ -225,5 +249,24 @@ export default {
 </script>
 
 <style>
-
+.modal-wrap {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+}
+/* modal or popup */
+.modal-container {
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 550px;
+  background: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  box-sizing: border-box;
+}
 </style>
