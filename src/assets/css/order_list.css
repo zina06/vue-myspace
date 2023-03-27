@@ -87,7 +87,7 @@
   font-weight: 600;
 }
 
-.order-button {
+/* .order-button {
   display: flex;
   flex-flow: column wrap;
   align-items: center;
@@ -102,7 +102,7 @@
   border: 1px solid gray;
   color: #1EDDFF;
   padding: 10px;  
-}
+} */
 
 .order-button input:hover {
   background-color: #1EDDFF;

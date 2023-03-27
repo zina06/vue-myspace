@@ -1,10 +1,16 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Home from "@/pages/myspace-home.vue";
 import Myhome from "@/pages/member/mypage-home.vue"
-import ReviewLIst from "@/pages/member/review-list.vue"
+import ReviewList from "@/pages/member/review-list.vue"
+import ReviewSave from "@/pages/member/review-save.vue"
 import ReviewInsert from "@/pages/member/review-insert.vue"
 import MemberRegister from "@/pages/member/member-register.vue"
 import MemberLogin from "@/pages/member/member-login.vue"
+import CartList from "@/pages/cart/cart-list.vue"
+
+import ProductDetail from "@/pages/product/product-detail.vue"
+import OrderPay from "@/pages/order/order-pay.vue"
+import OrderConfirm from "@/pages/order/order-confirm.vue"
 
 const router = createRouter({
     history: createWebHistory(),
@@ -12,8 +18,7 @@ const router = createRouter({
         {
             path: "/",
             name: "Home",
-            component: Home,
-            props: true,
+            component: Home
         },
         {
             path: "/mypage/home",
@@ -22,8 +27,13 @@ const router = createRouter({
         },
         {
             path: "/mypage/review",
-            name: "ReviewLIst",
-            component: ReviewLIst
+            name: "ReviewList",
+            component: ReviewList
+        },
+        {
+            path: "/mypage/review/save",
+            name: "ReviewSave",
+            component: ReviewSave
         },
         {
             path: "/mypage/review/insert",
@@ -39,6 +49,27 @@ const router = createRouter({
             path : "/member/login",
             name : "MemberLogin",
             component : MemberLogin
+        },
+        {
+            path:"/cart/list",
+            name:"CartList",
+            component: CartList
+        },
+        {
+            path: "/product/detail/:idx",
+            name: "ProductDetail",
+            component: ProductDetail
+           
+        },
+        {
+            path: "/order/pay",
+            name: "OrderPay",
+            component: OrderPay
+        },
+        {
+            path: "/order/confirm",
+            name: "OrderConfirm",
+            component: OrderConfirm
         }
     ]
 });
