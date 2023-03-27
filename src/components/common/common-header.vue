@@ -7,7 +7,7 @@
           <nav class="main-nav">
             <!-- ***** Logo Start ***** -->
             <router-link to="/" class="logo" >
-              <img src="@/assets/images/myspace_logo.png" alt="" />
+              <img src="@/assets/images/logo-myspace-blue.png" alt="" style="height: 50px; margin-top: 15px;"/>
             </router-link>
             <!-- ***** Logo End ***** -->
             <!-- ***** Search End ***** -->
@@ -56,7 +56,7 @@ import { useRouter } from 'vue-router'
       const router = useRouter();
       const search = function () {
         router.push({
-          name: 'Home',
+          name: 'Home', 
           query: {
             searchKeyword : searchKeyword.value
           }

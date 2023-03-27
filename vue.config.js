@@ -7,7 +7,7 @@ module.exports = defineConfig({
 })
 
 module.exports={
-  devServer : {
-    proxy: 'http://localhost:8084'
+  devServer: {
+    proxy : 'http://localhost:8084'
   }
-} //외부서버
+}

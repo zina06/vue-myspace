@@ -22,26 +22,26 @@
                                             <dialog :open="showModal" @close="showModal = false">
                                                 <h4>회원정보수정</h4>
                                                 <form name="form-member-update" onsubmit="return false;">
-                                                    <input type="hidden" class="form-control" name="idx" :value="member.idx" >
+                                                    <input type="hidden" class="form-control" name="idx" v-model="updateMember.idx" >
                                                     <label for="loginId">로그인ID</label>
-                                                    <input type="text" class="form-control" readonly id="loginId" name="loginId" :value="member.login_id" >
+                                                    <input type="text" class="form-control" readonly id="loginId" name="loginId" v-model="updateMember.loginId">
                                                     <br>
                                                     <label for="password">비밀번호</label>
-                                                    <input class="form-control" type="password" id="password" name="password" :value="member.password" readonly >
+                                                    <input class="form-control" type="password" id="password" name="password" value="****" readonly >
                                                     <br>
                                                     <label for="name">이름</label>
-                                                    <input class="form-control" type="text" id="name" name="name" :value="member.name" >
+                                                    <input class="form-control" type="text" id="name" name="name" v-model="updateMember.name" >
                                                     <br>
                                                     <label for="name">이메일</label>
-                                                    <input class="form-control" type="text" name="email" :value="member.email" >
+                                                    <input class="form-control" type="text" name="email" v-model="updateMember.email" >
                                                     <br>
                                                     <label for="name">전화번호</label>
-                                                    <input class="form-control" type="text" name="phone" :value="member.phone" >
+                                                    <input class="form-control" type="text" name="phone" v-model="updateMember.phone" >
                                                     <br>
                                                 </form>
                                                 <div class="col-lg-12">
                                                     <div class="main-button">
-                                                        <a @click="getUpdateMember" href="/mypage/home">저장하기</a>
+                                                        <a @click.prevent="getUpdateMember" href="/mypage/home">저장하기</a>
                                                     </div>
 
                                                 </div>
@@ -53,7 +53,7 @@
                                     <ul style="text-align: center;">
                                         <li><a href="/mypage/review">내가 작성한 리뷰</a></li>
                                         <li><a href="#">질문 답변</a></li>
-                                        <li><a href="/cart">장바구니</a></li>
+                                        <li><a href="/cart/list">장바구니</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -67,7 +67,7 @@
                                                 </div>
                                                 <template v-for="(order) in orderList" :key="order.idx">
                                                     <h4>주문번호: <em>{{ order.idx }}</em></h4>
-                                                    <template v-for="(cartProduct) in order.cart.cartProductList"  :key="cartProduct.idx">
+                                                    <template v-for="(cartProduct) in order.cartProductList"  :key="cartProduct.idx">
                                                         <div class="item">
                                                             <ul>
                                                                 <li>
@@ -116,6 +116,7 @@
 
 <script>
 import axios from 'axios';
+import { useRouter } from 'vue-router';
 import { ref } from 'vue';
 export default {
     data(){
@@ -129,12 +130,14 @@ export default {
         const member = ref(null);
         const orderList = ref(null);
         const updateMember = ref(null);
+        const router = useRouter();
 
         //function
         const getMember = async () => {
             const result = await axios.get("/member/8");
             member.value = result.data;
             updateMember.value = {...result.data};
+            console.log(updateMember.value)
 
             getOrderListByMember();
         }
@@ -142,19 +145,27 @@ export default {
 
         const getOrderListByMember = async () => {
             const memberIdx = member.value.idx;
-            const result = await axios.get("/order/member/" + memberIdx);
+            const result = await axios.get("/order/memberOrder/" + memberIdx);
             orderList.value = result.data;
+            console.log(orderList.value);
         }
 
         const getUpdateMember = async() =>{
-            await axios.post("/member/save", updateMember.value);
-            console.log(updateMember.value);
-        }
+            try {
+                const result = await axios.put("/member/update", updateMember.value);
+                if(result != null){
+                    alert("수정 완료!")
+                    router.push({name: "Home"});
+                }
+            } catch (error) {
+                alert("회원정보를 수정하지 못했습니다.");
+            }}
 
         //return
         return {
             member,
             orderList,
+            updateMember,
             getUpdateMember
         }
     }
