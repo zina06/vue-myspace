@@ -36,10 +36,32 @@
  <div class="tab-content" id="nav-tabContent">
   <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab" tabindex="0"></div>
   <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0" style="margin-left:500px; margin-top: 70px;">
-  	 <span style="margin-left: 405px; font-size: 1.3em;"><b>구매만족도</b></span>
-  	<div id="allTotal" style="background: #F3F3F3; border: 1px solid #F3F3F3; width: 100px;height: 100px; border-radius: 100%; font-size: 1.5em; margin-left: 410px; margin-top: 10px;">
+  	 <!-- <span style="margin-left: 405px; font-size: 1.3em;"><b>구매만족도</b></span> -->
+	
+		<div style="float: right; margin-right: 800px; margin-top: 20px;">
+   
+   <p style="color: #35C5F0;"><b>5점 &nbsp;{{ scoreCounts5 }}</b></p>
+   <p style="color: black;">4점 &nbsp;{{ scoreCounts4 }}</p>
+   <p style="color: black;">3점 &nbsp;{{ scoreCounts3 }}</p>
+   <p style="color: black;">2점 &nbsp;{{ scoreCounts2 }}</p>
+   <p style="color: black;">1점 &nbsp;{{ scoreCounts1 }}</p>
+   
+  
+</div>
+
+<div style="background: #F3F3F3; border: 1px solid #F3F3F3; width: 800px;height: 180px; border-radius: 0.5rem; margin-left: 40px;">
+	<!-- <span style="margin-left: 405px; font-size: 1.1em;"><b>구매만족도</b></span> -->
+	<span style="margin-left:200px; margin-top: 60px; display: inline-block; font-size: 3em;"><b> {{ allTotal }}</b></span>
+</div>
+
+	
+
+
+  	<!-- <div id="allTotal" style="background: #F3F3F3; border: 1px solid #F3F3F3; width: 100px;height: 100px; border-radius: 100%; font-size: 1.5em; margin-left: 410px; margin-top: 10px;">
            <span style="margin-left: 30px; margin-top: 25px; display: inline-block;"> {{ allTotal }}</span>
-  	</div>
+		
+		   
+  	</div> -->
 
 	  
 
@@ -51,7 +73,8 @@
   				
 									
 									
-									
+						<br><br>
+						
 				  <template v-for="review in reviewList" :key="review.idx" >
 									<div >
   						<img src="../../assets/images/reviewprofile.png" style="width: 26px; height: 26px;">
@@ -110,7 +133,7 @@
 <script>
 import {useRoute, useRouter} from 'vue-router';
 import axios from 'axios';
-import {ref} from 'vue';
+import {computed, ref} from 'vue';
 export default {
 	setup(){
 		const router=useRouter();
@@ -124,6 +147,14 @@ export default {
 		const reviewList=ref(null);
 		const allTotal=ref('');
 		const reviewCount = ref(0);
+		const scoreCounts5=ref('');
+		const scoreCounts4=ref('');
+		const scoreCounts3=ref('');
+		const scoreCounts2=ref('');
+		const scoreCounts1=ref('');
+
+		
+		
 		
 		const getProduct = async() =>{
 			//loading.value=true;
@@ -184,9 +215,14 @@ export default {
 						const score = Math.floor(review.score.total);
 						console.log(score);
 						scoreCounts[score] += 1;
+						scoreCounts5.value=scoreCounts[5];
+						scoreCounts4.value=scoreCounts[4];
+						scoreCounts3.value=scoreCounts[3];
+						scoreCounts2.value=scoreCounts[2];
+						scoreCounts1.value=scoreCounts[1];
 						});
-						//console.log(score);
-						console.log(scoreCounts[4]);
+						
+						console.log("ㄴㄴㄴ"+scoreCounts[4]);
 					}
 			})
 		}
@@ -211,7 +247,11 @@ export default {
 		allTotal,
 		reviewCount,
 		addProduct,
-	
+		scoreCounts5,
+		scoreCounts4,
+		scoreCounts3,
+		scoreCounts2,
+		scoreCounts1
 	};	
 			
 		
