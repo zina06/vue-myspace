@@ -76,6 +76,7 @@
 </div>
 </div>
 
+
 <div class = "cart-container2" >
   <ol class="list-group">
   <li class="list-group-item d-flex justify-content-between align-items-start " style="padding: 20px;">
@@ -116,6 +117,7 @@
         </button>
                   
 </ol>
+
 </div>
 </div>
 </template>
@@ -151,8 +153,8 @@ export default {
     
     
     const getCart = async() => {
-        const res = await axios.get(`/cart/${idx}`);
-        cartProductList.value = res.data.cartProductList;
+        const res = await axios.get(`/cartProduct/cart/${idx}`);
+        cartProductList.value = res.data;
         console.log(res);
     }
     getCart();
