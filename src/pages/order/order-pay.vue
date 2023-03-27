@@ -49,13 +49,10 @@
                                 개인정보 수집 이용 및 제 3자 제공 동의(필수)
                             </label>
                     </div>
-                            <div class="infolabel">
-                                본인은 만 14세 이상이며, 주문 내용을 확인하였습니다.
-                                (주)MYSPACE는 통신판매중개자로 거래 당사자가 아니므로, 판매자가 등록한 상품정보 및 거래 등에 대해 책임을 지지 않습니다 
-                            </div>
-                            
-                    
-                    
+                        <div class="infolabel">
+                            본인은 만 14세 이상이며, 주문 내용을 확인하였습니다.
+                            (주)MYSPACE는 통신판매중개자로 거래 당사자가 아니므로, 판매자가 등록한 상품정보 및 거래 등에 대해 책임을 지지 않습니다 
+                        </div>
                     <div class="col-lg-12">
                         <div class="main-button">
                             <a  @click="saveOrder()">결제하기</a>
