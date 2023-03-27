@@ -70,11 +70,11 @@
                 <hr style="border: solid 2px #d8d7d7;">
             <div class="mb-3 row">
                     <label id="sstitle" class="col-sm-4 col-form-label">주문자명</label>
-                    <div class="col-sm-7" > {{memberInfo.name}} </div>
+                    <div class="col-sm-7" > {{member.name}} </div>
                     <label id="sstitle" class="col-sm-4 col-form-label">이메일</label>
-                    <div class="col-sm-7"> {{memberInfo.email}} </div>
+                    <div class="col-sm-7"> {{member.email}} </div>
                     <label id="sstitle" class="col-sm-4 col-form-label">전화번호</label>
-                    <div class="col-sm-7"> {{memberInfo.phone}} </div>
+                    <div class="col-sm-7"> {{member.phone}} </div>
             </div>
          </div>
       </div>
@@ -158,6 +158,7 @@
         const payment = ref("");
         const memberInfo = ref("");
         const cartProductList = ref([]);
+        const member = ref();
 
 
         const cartIdx = route.query.cartIdx;
@@ -182,6 +183,12 @@
         });
 
 
+        const getMember = async () => {
+            const result = await axios.get("/member/principal");
+            member.value = result.data;
+        }
+        getMember();
+
         //주문자정보
         const memberFind = async () => {
         //const idx = cartProduct.cart.data.member.idx;
@@ -202,13 +209,12 @@
         const saveOrder = async() => {
             let orderIdx = ref(null);
             const res = await axios.post('/order/save', {
-                member : {
-                    idx: 2
+                "member" : {
+                    "idx": member.value.idx
                 },
                 cart : {
                     idx: cartIdx
                 },
-                //member_idx: memberInfo.value.idx,
                 delivery_name: deliveryName.value,
                 address_name: addressName.value,
                 address: address.value,
@@ -217,7 +223,6 @@
                 price: totalPrice.value,
                 delivery_price: deliveryPrice.value
             });
-            console.log(res);
 
             orderIdx.value = res.data.idx;
             console.log(orderIdx.value);
@@ -226,7 +231,7 @@
             router.push({
                 name: "OrderConfirm",
                 query: {
-                    idx : idx,
+                    idx : member.value.idx,
                 }
             });
         }
@@ -252,6 +257,7 @@
             totalProductPrice,
             deliveryPrice,
             totalPrice,
+            member
         };
     }
     }
