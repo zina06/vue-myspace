@@ -18,24 +18,20 @@
   display: inline-block;
 }
 
-.col-8 .table.table-bordered{
+.col-8 .table{
   font-size: 13px;
   text-align: center;
   width: 90%;
   margin-left: 30px;
+  padding: 3px;
+  vertical-align : middle;
 }
-.col-8 .table.table-bordered th{
-  padding: 3px;
-  vertical-align : middle;
-} 
-.col-8 .table.table-bordered td{
-  padding: 3px;
-  vertical-align : middle;
-} 
+
+
 
 .col-8 img{
-  width: 50px;
-  height: 50px;
+  width: 60px;
+  height: 60px;
 } 
 
 .col-3{
@@ -59,13 +55,21 @@
 }
 
 .col-3 .form-check{
-  margin: 25px auto;
+  margin: 20px auto;
  }
 
 .col-3 .form-check-label{
  color: rgb(114, 114, 114);
  font-weight: bold;
 }
+
+.col-3 .infolabel{
+  color: rgb(147, 146, 146);
+  padding-left: 25px;
+  width: 350px;
+  margin-bottom: 10px;
+  font-size: 13px;
+ }
 
 
 .sub{

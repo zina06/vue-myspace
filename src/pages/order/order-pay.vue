@@ -49,6 +49,12 @@
                                 개인정보 수집 이용 및 제 3자 제공 동의(필수)
                             </label>
                     </div>
+                            <div class="infolabel">
+                                본인은 만 14세 이상이며, 주문 내용을 확인하였습니다.
+                                (주)MYSPACE는 통신판매중개자로 거래 당사자가 아니므로, 판매자가 등록한 상품정보 및 거래 등에 대해 책임을 지지 않습니다 
+                            </div>
+                            
+                    
                     
                     <div class="col-lg-12">
                         <div class="main-button">
@@ -83,28 +89,30 @@
             <h5>주문상품</h5>
             <hr style="border: solid 2px #d8d7d7;">
          <div class="mb-3 row">
-            <table class="table table-bordered" v-for="(cartProduct, idx) in cartProductList" :key="idx">
+            <table class="table" v-for="(cartProduct, idx) in cartProductList" :key="idx">
                <thead>
-                  <tr>
-                     <th colspan="3">{{ cartProduct.product.brand.name }}</th>
+                  <tr class="p-3 mb-2 bg-light text-dark">
+                     <th colspan="2" >{{ cartProduct.product.brand.name }}</th>
                      <th scope="col">{{ cartProduct.product.price }}원</th>
                   </tr>
                </thead>
                <tbody>
-                <tr >
-                    <td colspan="4">
-                        <img class="product-image" :src="cartProduct.product.image_url" alt="" >
-                        {{ cartProduct.product.name }}
-                        수량 : {{ cartProduct.amount }}
+                <tr>
+                    <td style="display: flex; align-items: center; margin-left:50px;">
+                        <img class="product-image" :src="cartProduct.product.image_url" >
+                        <div style="margin-left: 10px;">
+                        <div>{{ cartProduct.product.name }}</div>
+                        <div>수량 : {{ cartProduct.amount }}</div>
+                        </div>
                     </td>
-                </tr> 
+                    </tr> 
                 <!-- <tr v-for="(cartProduct, idx) in cartProductList" :key="idx">
                     <td scope="row">{{ idx + 1 }}</td>
                     <td>{{ cartProduct.product.name }}</td>
                     <td>{{ cartProduct.product.price }}</td>
                     <td>{{ cartProduct.amount }}</td>
                 </tr> -->
-            </tbody>
+                </tbody>
             </table>
          </div>
          </div>
