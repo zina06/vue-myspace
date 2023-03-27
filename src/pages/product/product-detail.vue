@@ -38,8 +38,11 @@
   <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0" style="margin-left:500px; margin-top: 70px;">
   	 <span style="margin-left: 405px; font-size: 1.3em;"><b>구매만족도</b></span>
   	<div id="allTotal" style="background: #F3F3F3; border: 1px solid #F3F3F3; width: 100px;height: 100px; border-radius: 100%; font-size: 1.5em; margin-left: 410px; margin-top: 10px;">
-           <span style="margin-left: 43px; margin-top: 25px; display: inline-block;"> {{ allTotal }}</span>
+           <span style="margin-left: 30px; margin-top: 25px; display: inline-block;"> {{ allTotal }}</span>
   	</div>
+
+	  
+
   	<br><br>
 	<div>
 	</div>
@@ -53,8 +56,8 @@
 									<div >
   						<img src="../../assets/images/reviewprofile.png" style="width: 26px; height: 26px;">
 										<span style="display: inline-block; margin-bottom: 10px;">{{ review.member.name }}</span><br>
-										{{ review.score.total }} <span style="display: inline-block; margin-bottom: 10px;">
-									
+										총점 {{ review.score.total }} <span style="display: inline-block; margin-bottom: 10px;">
+											
 										</span>
 										
 										
@@ -121,6 +124,7 @@ export default {
 		const reviewList=ref(null);
 		const allTotal=ref('');
 		const reviewCount = ref(0);
+		
 		const getProduct = async() =>{
 			//loading.value=true;
 			
@@ -165,11 +169,33 @@ export default {
 					reviewCount.value = reviewList.value.length;
 				}
 				
+
+				
+					if (reviewList.value.length > 0) {
+						const scoreCounts = {
+						5: 0,
+						4: 0,
+						3: 0,
+						2: 0,
+						1: 0,
+						};
+
+						reviewList.value.forEach((review) => {
+						const score = Math.floor(review.score.total);
+						console.log(score);
+						scoreCounts[score] += 1;
+						});
+						//console.log(score);
+						console.log(scoreCounts[4]);
+					}
 			})
 		}
 			
 		getReviewList();
 
+
+		
+		
 	return{
 		getProduct,
 		reviewList,
@@ -184,7 +210,8 @@ export default {
 		router,
 		allTotal,
 		reviewCount,
-		addProduct
+		addProduct,
+	
 	};	
 			
 		
