@@ -4,6 +4,7 @@ import Myhome from "@/pages/member/mypage-home.vue"
 import ReviewList from "@/pages/member/review-list.vue"
 import ReviewSave from "@/pages/member/review-save.vue"
 import ReviewInsert from "@/pages/member/review-insert.vue"
+import ProductDetail from "@/pages/product/product-detail.vue"
 
 const router = createRouter({
     history: createWebHistory(),
@@ -33,6 +34,11 @@ const router = createRouter({
             path: "/mypage/review/insert",
             name: "ReviewInsert",
             component: ReviewInsert
+        },
+        {
+            path: "/product/detail/:idx",
+            name: "ProductDetail",
+            component: ProductDetail
         }
     ]
 });
