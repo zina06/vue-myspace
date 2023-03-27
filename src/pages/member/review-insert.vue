@@ -59,14 +59,14 @@ export default {
     const insertReview = ref({
       idx: null,
       member: {
-        idx: 1 // 프린시펄
+        idx: member.value.idx // 프린시펄
       },
       product: {
-        idx: 1
+        idx: route.query.productIdx// 
       }, 
       order: {
-        idx: 1
-      }, // router.query.orderIdx
+        idx: route.query.productIdx // 
+      }, 
       content: '',
     });
     const insertScore = ref({
@@ -79,13 +79,18 @@ export default {
         idx: null,
       }
     });
+    let member = ref('');
+    const getMember = async () => {
+        await axios.get('/member/principal').then((res) => {
+        member.value = res.data;});
+    }
     const getProduct = async () => { 
       const res = await axios.get('/product/' + 1); // router.query.productIdx
       productData.value = res.data;
       console.log(productData.value);
       insertReview.value.product.idx = productData.value.idx;
     }    
-    getProduct();
+    
 
     const submitForm = async () => {
       console.log(insertReview.value);
@@ -93,6 +98,13 @@ export default {
       insertScore.value.review.idx = res.data.idx;
       await axios.post('/score/save', insertScore.value);
     }
+
+    (async () => {
+      await getMember();
+      await getProduct();
+      await submitForm();
+    })();
+
     const cancel = () => {
       router.push({
         name: "ReviewList"
@@ -105,7 +117,8 @@ export default {
       route,
       insertReview,
       insertScore,
-
+      member,
+      
       submitForm,
       cancel,
     }
