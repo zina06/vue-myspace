@@ -37,8 +37,8 @@
             </div>
         </div>
             <div class="review-button">
-              <button type="submit">작성</button>
-              <button @click.prevent="cancel">취소</button>
+              <button class="review-button" type="submit">작성</button>
+              <button class="review-button" @click.prevent="cancel">취소</button>
             </div>
        </div>
     </form>
@@ -212,7 +212,7 @@ export default {
   background-color: #1EDDFF;
 }
 
-button {
+.review-button {
   width: 50px; 
   height: 30px; 
   border-radius: 7px; 
