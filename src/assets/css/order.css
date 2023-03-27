@@ -27,8 +27,6 @@
   vertical-align : middle;
 }
 
-
-
 .col-8 img{
   width: 60px;
   height: 60px;
@@ -41,11 +39,8 @@
   border-radius: 10px;
 }
 
-.col-3 .btn{
-   width: 100%;
-}
-
 .col-3 #sstitle{
+  text-align: left;
   color: rgb(121, 121, 121);
 }
 
@@ -65,10 +60,10 @@
 
 .col-3 .infolabel{
   color: rgb(147, 146, 146);
-  padding-left: 25px;
-  width: 350px;
   margin-bottom: 10px;
   font-size: 13px;
+  margin: 20px auto;
+  width: 90%;
  }
 
 
